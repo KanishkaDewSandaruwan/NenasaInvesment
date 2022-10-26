@@ -1,0 +1,1 @@
+<?php $con =  mysqli_connect("localhost", "root", "" , "nenasa_nvestment_db") or die("Database Connection Fail"); ?>
