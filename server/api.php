@@ -30,17 +30,44 @@ else if (isset($_GET['function_code']) && $_GET['function_code'] == 'imageUpload
     }
 
 }
-else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addService') {
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addCompany') {
 
     $img = $_FILES['file']['name'];
-    $target_dir = "uploads/service/";
+    $target_dir = "uploads/company/";
     $target_file = $target_dir . basename($img);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $extensions_arr = array("jpg", "jpeg", "png", "gif", "jfif", "svg", "webp");
 
     if (in_array($imageFileType, $extensions_arr)) {
         move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $img);
-        addService($_POST, $img);
+        addCompany($_POST, $img);
+    }
+}
+
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'applyJob') {
+
+    $img = $_FILES['file']['name'];
+    $target_dir = "uploads/apply/";
+    $target_file = $target_dir . basename($img);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $extensions_arr = array("jpg", "jpeg", "png", "doc", "pdf", "svg", "webp");
+
+    if (in_array($imageFileType, $extensions_arr)) {
+        move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $img);
+        applyJob($_POST, $img);
+    }
+}
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addJob') {
+
+    $img = $_FILES['file']['name'];
+    $target_dir = "uploads/job/";
+    $target_file = $target_dir . basename($img);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $extensions_arr = array("jpg", "jpeg", "png", "gif", "jfif", "svg", "webp");
+
+    if (in_array($imageFileType, $extensions_arr)) {
+        move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $img);
+        addJob($_POST, $img);
     }
 }
 else if (isset($_GET['function_code']) && $_GET['function_code'] == 'deleteData') {

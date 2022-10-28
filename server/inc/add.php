@@ -1,21 +1,27 @@
 <?php
 
-function addService($data, $img)
+function addCompany($data, $img)
 {
 	include 'connection.php';
 
-	$service_name = $data['service_name'];
-	$service_details = $data['service_details'];
-	$service_price = $data['service_price'];
-	$waiting_time = $data['waiting_time'];
-	$service_active = $data['service_active'];
-	$number_of_works = $data['number_of_works'];
+	$company_name = $data['company_name'];
+	$tagline = $data['tagline'];
+	$company_description = $data['company_description'];
+	$website = $data['website'];
+	$facbook = $data['facbook'];
+	$twitter = $data['twitter'];
+	$lonkdin = $data['lonkdin'];
+	$company_login_email = $data['company_login_email'];
+	$company_password = $data['company_password'];
+	$company_admin_email = $data['company_admin_email'];
+	$company_admin_phone = $data['company_admin_phone'];
 
-	$count = checkProductByName($service_name);
+	$count = checkCompanyByEmail($company_login_email);
 
 	if ($count == 0) {
 
-		$sql = "INSERT INTO service(service_name, service_price, service_details, waiting_time, is_deleted, service_active, service_image, number_of_works) VALUES('$service_name', '$service_price', '$service_details', '$waiting_time', 0, '$service_active' ,'$img' , '$number_of_works')";
+		$sql = "INSERT INTO company(company_name, tagline, company_description, website, facbook, twitter, lonkdin, company_login_email, company_password, company_admin_email, company_admin_phone, company_logo, is_deleted, date_updated)
+		VALUES('$company_name', '$tagline', '$company_description', '$website', '$facbook' ,'$twitter' , '$lonkdin', '$company_login_email', '$company_password', '$company_admin_email', '$company_admin_phone', '$img', 0 , now())";
 		return mysqli_query($con, $sql);
 
 	}
@@ -24,31 +30,48 @@ function addService($data, $img)
 	}
 }
 
-function addBooking($data)
+function addJob($data, $img)
+{
+	include 'connection.php';
+
+	$company_id = $data['company_id'];
+	$job_title = $data['job_title'];
+	$job_location = $data['job_location'];
+	$type = $data['type'];
+	$job_description = $data['job_description'];
+	$job_active = $data['job_active'];
+	$closing_date = $data['closing_date'];
+
+	$count_loginCustomer = checkJob($job_title);
+	$count = mysqli_num_rows($count_loginCustomer);
+
+	if ($count == 0) {
+
+		$sql = "INSERT INTO job(job_image, job_title, job_location, type, job_description, is_deleted, job_active, closing_date, date_updated, company_id) 
+		VALUES('$img', '$job_title', '$job_location', '$type', '$job_description', 0, '$job_active', '$closing_date' , now(), '$company_id')";
+		return mysqli_query($con, $sql);
+
+	}
+	else {
+		echo json_encode($count);
+	}
+}
+
+function applyJob($data, $img)
 {
 	include 'connection.php';
 
 	$customer_id = $data['customer_id'];
-	$service_id = $data['service_id'];
-	$booking_date = $data['booking_date'];
-	$booking_time = $data['booking_time'];
-	$booking_price = $data['booking_price'];
-	$speacial_request = $data['speacial_request'];
-	$number_of_works = $data['number_of_works'];
-	$waiting_time = $data['waiting_time'];
+	$job_id = $data['job_id'];
+	$additional_details = $data['additional_details'];
 
+	$checkJobApply = checkApply($customer_id);
+	$count = mysqli_num_rows($checkJobApply);
 
-    $newTime = date('H:i:s', strtotime($booking_time. ' + ' . $waiting_time . ' hours'));
+	if ($count == 0) {
 
-	$newStartTime = $booking_date. " " . $booking_time;
-	$newEndTime = $booking_date. " " . $newTime;
-
-	$count = checkBookingDate($newStartTime, $newEndTime, $service_id);
-
-	if ($count == 0 || $count < $number_of_works) {
-
-		$sql = "INSERT INTO booking(service_id, customer_id, booking_date, speacial_request, booking_price, is_deleted, date_updated, end_time, status) 
-		VALUES('$service_id', '$customer_id', '$newStartTime', '$speacial_request', '$booking_price', 0, now(), '$newEndTime', 0)";
+		$sql = "INSERT INTO apply(customer_id, job_id, resume, additional_details, is_deleted, date_updated, apply_status) 
+		VALUES('$customer_id', '$job_id', '$img', '$additional_details', 0, now(), 0)";
 		return mysqli_query($con, $sql);
 
 	}

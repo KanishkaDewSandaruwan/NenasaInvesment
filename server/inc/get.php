@@ -1,75 +1,12 @@
 <?php
 
-
-
-//product
-
-function getAllService()
-{
-    include 'connection.php';
-
-    $viewcat = "SELECT * FROM service WHERE is_deleted = 0 ";
-    return mysqli_query($con, $viewcat);
-}
-
-function getAllProductService()
-{
-    include 'connection.php';
-
-    $viewcat = "SELECT * FROM service WHERE is_deleted = 0 AND product_active = 1 ORDER BY date_updated DESC";
-    return mysqli_query($con, $viewcat);
-}
-
-
-function checkProductByName($service_name)
-{
+//reviews
+function getAllReviews(){
 	include 'connection.php';
-
-	$product = "SELECT * FROM service WHERE service_name = '$service_name' AND is_deleted = 0";
-	$result = mysqli_query($con, $product);
-	return mysqli_num_rows($result);
+	
+	$review = "SELECT * FROM review";
+	return mysqli_query($con,$review);
 }
-
-function getAllServiceByID($service_id)
-{
-	include 'connection.php';
-
-	$viewcat = "SELECT * FROM service WHERE is_deleted = 0 AND service_id = '$service_id' ";
-	return mysqli_query($con, $viewcat);
-}
-
-function getAllServiceByIDHome($data)
-{
-	include 'connection.php';
-
-    $service_id = $data['service_id'];
-
-	$viewcat = "SELECT * FROM service WHERE is_deleted = 0 AND service_id = '$service_id' ";
-	$res = mysqli_query($con, $viewcat);
-
-    $serviceArray = array();
-    while($row = mysqli_fetch_assoc($res)){
-        $serviceArray[] = $row['service_price'];
-        $serviceArray[] = $row['waiting_time'];
-        $serviceArray[] = $row['number_of_works'];
-    }
-    echo json_encode($serviceArray);
-}
-
-function getCountServiceByID($service_id)
-{
-	include 'connection.php';
-
-	$view = "SELECT * FROM service WHERE is_deleted = 0 AND service_id = '$service_id' ";
-	return  mysqli_query($con, $view);
-}
-
-//booking
-
-
-
-//customer
-
 
 function checkuserPassword($data)
 {
@@ -81,6 +18,15 @@ function checkuserPassword($data)
     $result = mysqli_query($con, $viewcat);
     $count = mysqli_num_rows($result);
     echo $count;
+}
+
+function checkCompanyByEmail($company_login_email)
+{
+	include 'connection.php';
+
+	$company = "SELECT * FROM company WHERE company_login_email = '$company_login_email' AND is_deleted = 0";
+	$result = mysqli_query($con, $company);
+	return mysqli_num_rows($result);
 }
 
 function checkUserEmail($data)
@@ -132,18 +78,40 @@ function getLoginAdmin($data)
     $email = $data['email'];
     $password = $data['password'];
 
-    $loginAdmin = "SELECT * FROM customer WHERE email = '$email' AND password ='$password'";
-    $count_loginAdmin = mysqli_query($con, $loginAdmin);
+    $loginAdmin = "SELECT * FROM company WHERE company_login_email = '$email' AND company_password ='$password'";
+    $countloginAdmin = mysqli_query($con, $loginAdmin);
+    $counts_loginAdmin = mysqli_num_rows($countloginAdmin);
 
-    if ($email == 'admin') {
-        $_SESSION['admin'] = $email;
+    $loginCustomer = "SELECT * FROM customer WHERE email = '$email' AND password ='$password'";
+    $count_loginCustomer = mysqli_query($con, $loginCustomer);
+    $counts_loginCustomer = mysqli_num_rows($count_loginCustomer);
+
+    $value = 0;
+
+    if($counts_loginAdmin > 0){   
+
+        $value = $counts_loginAdmin;
+
+            $res = checkCompany($email);
+            $row = mysqli_fetch_assoc($res);
+            $_SESSION['company'] = $row['company_id'];
+
+     
+    }else if($counts_loginCustomer > 0){
+
+        $value = $counts_loginCustomer;
+
+
+        if ($email == 'admin') {
+            $_SESSION['admin'] = $email;
+        }else{
+            $res = checkCustomerByEmail($email);
+            $row = mysqli_fetch_assoc($res);
+            $_SESSION['customer'] = $row['customer_id'];
+        }
     }
-    else {
-        $res = checkCustomerByEmail($email);
-        $row = mysqli_fetch_assoc($res);
-        $_SESSION['customer'] = $row['customer_id'];
-    }
-    return mysqli_num_rows($count_loginAdmin);
+      return $value;
+    
 }
 
 function checkCustomerByEmail($email)
@@ -154,6 +122,38 @@ function checkCustomerByEmail($email)
     return mysqli_query($con, $q1);
 }
 
+function checkJob($customer_id)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM apply WHERE customer_id='$customer_id' AND is_deleted='0'";
+    return mysqli_query($con, $q1);
+}
+
+
+function applyListcustomer_ID($customer_id)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM apply join customer on customer.customer_id = apply.customer_id join job on job.job_id = apply.job_id WHERE apply.customer_id='$customer_id' AND apply.is_deleted='0'";
+    return mysqli_query($con, $q1);
+}
+
+function checkApply($job_title)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM job WHERE job_title='$job_title' AND is_deleted='0'";
+    return mysqli_query($con, $q1);
+}
+
+function checkCompany($company_login_email)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM company WHERE company_login_email='$company_login_email' AND is_deleted='0'";
+    return mysqli_query($con, $q1);
+}
 
 function checkCustomerByID($customer_id)
 {
@@ -163,16 +163,19 @@ function checkCustomerByID($customer_id)
     return mysqli_query($con, $q1);
 }
 
-function getAllCustomer()
-{
-    include 'connection.php';
 
-    $q1 = "SELECT * FROM customer WHERE is_deleted = '0' AND email != 'admin'";
-    $table = mysqli_query($con, $q1);
-    $columns = mysqli_fetch_all ($table, MYSQLI_ASSOC);
+function getAllJobs(){
+	include 'connection.php';
 
-    return $columns;
+	$job = "SELECT * FROM job WHERE is_deleted = 0";
+	return mysqli_query($con,$job);
+}
 
+function getJobById($job_id){
+	include 'connection.php';
+
+	$job = "SELECT * FROM job join company on company.company_id = job.company_id WHERE job.is_deleted = 0 AND job.job_id = '$job_id'";
+	return mysqli_query($con,$job);
 }
 
 
@@ -232,6 +235,16 @@ function dataforCountLastWeek($table){
 
 	$counts = "SELECT sum(booking_price) as sum FROM $table WHERE NOT(date_updated < '$NewDate'  OR date_updated >  now())";
     return mysqli_query($con,$counts);
+}
+
+//search
+
+function getAllItemsSearch($key)
+{
+	include 'connection.php';
+
+	$viewcat = "SELECT * FROM job WHERE is_deleted = 0 AND job_active = 0 AND (job_title LIKE '%$key%' OR job_description LIKE '%$key%')";
+	return mysqli_query($con, $viewcat);
 }
 
 

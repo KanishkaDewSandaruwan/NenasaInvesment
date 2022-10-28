@@ -1,62 +1,4 @@
-addCategory = (form) => {
-    let fd = new FormData(form);
 
-    if (fd.get('category_name').trim() != '') {
-        if (fd.get("file") != '') {
-
-            $.ajax({
-                method: "POST",
-                url: API_PATH + "addCategory",
-                data: fd,
-                success: function ($data) {
-                    console.log($data);
-
-                    if ($data > 0) {
-                        errorMessage("This Category Already Registerd!");
-                    } else {
-                        successToast();
-
-                    }
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
-                error: function (error) {
-                    console.log(`Error ${error}`);
-                }
-            });
-        } else { errorMessage("Please SelectImage"); }
-    } else { errorMessage("Please Enter Category Name"); }
-}
-
-addService = (form) => {
-    let fd = new FormData(form);
-
-    if (fd.get("service_name")) {
-        if (fd.get("file")) {
-
-            $.ajax({
-                method: "POST",
-                url: API_PATH +  "addService",
-                data: fd,
-                success: function ($data) {
-                    console.log($data);
-                    if ($data > 0) {
-                        errorMessage("This Service Already Registerd!");
-                    } else {
-                        successToast();
-                    }
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
-                error: function (error) {
-                    console.log(`Error ${error}`);
-                }
-            });
-        } else { errorMessage("Please SelectImage"); }
-    } else { errorMessage("Please Enter Service Name"); }
-}
 
 addCustomer = (form) => {
     let fd = new FormData(form);
@@ -74,7 +16,7 @@ addCustomer = (form) => {
 
                                             $.ajax({
                                                 method: "POST",
-                                                url: API_PATH + "addCustomer",
+                                                url: HOME_API_PATH + "addCustomer",
                                                 data: fd,
                                                 success: function ($data) {
                                                     console.log($data);

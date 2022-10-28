@@ -27,21 +27,70 @@ addContactMessage = (form) => {
 
 }
 
-addBooking = (form) => {
+
+addCompany = (form) => {
+    let fd = new FormData(form);
+    console.log(fd);
+
+    if (fd.get('company_name').trim() != '') {
+        if (fd.get('company_description').trim() != '') {
+            if (fd.get('company_login_email').trim() != '') {
+                if (fd.get('company_password').trim() != '') {
+                    if (fd.get('company_admin_email').trim() != '') {
+                        if (fd.get('company_admin_phone').trim() != '') {
+                            if (fd.get('re_company_password').trim() != '') {
+                                if (fd.get('company_password') == fd.get('re_company_password')) {
+                                    if (emailvalidation(fd.get('company_login_email')) && emailvalidation(fd.get('company_admin_email'))) {
+                                        if (phonenumber(fd.get('company_admin_phone'))) {
+
+                                            $.ajax({
+                                                method: "POST",
+                                                url: HOME_API_PATH + "addCompany",
+                                                data: fd,
+                                                success: function ($data) {
+                                                    console.log($data);
+                                                    if ($data > 0) {
+                                                        errorMessage("Your Company Already Registerd!");
+                                                    } else {
+                                                        successToast();
+                                                    }
+                                                },
+                                                cache: false,
+                                                contentType: false,
+                                                processData: false,
+                                                error: function (error) {
+                                                    console.log(`Error ${error}`);
+                                                }
+                                            });
+                                        } else { errorMessage("Phone Number is not valid"); }
+                                    }
+                                }
+                            } else { errorMessage("Pleasefill required Details"); }
+                        } else { errorMessage("Please fill required Details"); }
+                    } else { errorMessage("Please fill required Details"); }
+                } else { errorMessage("Pleasefill required Details"); }
+            } else { errorMessage("Please fill required Details"); }
+        } else { errorMessage("Please fill required Details"); }
+    } else { errorMessage("Please fill required Details"); }
+
+
+}
+
+addJob = (form) => {
     var formData = new FormData(form);
 
-    if (formData.get('service_id') != 0) {
-        if (formData.get('booking_date').trim() != '') {
-            if (formData.get('booking_time').trim() != '') {
-                if (formData.get('speacial_request').trim() != '') {
+    if (formData.get('company_id') != 0) {
+        if (formData.get('job_title').trim() != '') {
+            if (formData.get('job_location').trim() != '') {
+                if (formData.get('job_description').trim() != '') {
                     $.ajax({
                         method: "POST",
-                        url: HOME_API_PATH + "addBooking",
+                        url: HOME_API_PATH + "addJob",
                         data: formData,
                         success: function ($data) {
                             console.log($data);
                             if ($data > 0) {
-                                errorMessage("This Time is Already Taken! Please Select Other Time")
+                                errorMessage("This Job is Already Here.. ! Please Select Other Time")
                             } else {
                                 successToast();
                             }
@@ -53,218 +102,48 @@ addBooking = (form) => {
                             console.log(`Error ${error}`);
                         }
                     });
-                } else { errorMessage("Please Enter Special request"); }
-            } else { errorMessage("Please Select Booking Time"); }
-        } else { errorMessage("Please Select Booking Date"); }
-    } else { errorMessage("Please Select Service"); }
-
-}
-
-addtoCartProductwithQty = (pid, price) => {
-
-    var qty = document.getElementById('qty').value;
-    var data = {
-        pid: pid,
-        price: price,
-        qty: qty,
-    };
-
-    $.ajax({
-        method: "POST",
-        url: "add_to_cart.php?pid=" + pid + "&product_price=" + price + "&qty=" + qty,
-        data: data,
-        success: function ($data) {
-            console.log($data);
-            if ($data === '"Fail"') {
-                window.location.href = 'admin/login.php';
-            } else {
-                successToastCart();
-            }
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        error: function (error) {
-            console.log(`Error ${error}`);
-        }
-    });
-}
-
-addtoCartProduct = (pid, price) => {
-
-    var data = {
-        pid: pid,
-        price: price,
-    };
-
-    $.ajax({
-        method: "POST",
-        url: "add_to_cart.php?pid=" + pid + "&product_price=" + price,
-        data: data,
-        success: function ($data) {
-            console.log($data);
-            if ($data === '"Fail"') {
-                window.location.href = 'admin/login.php';
-            } else {
-                successToastCart();
-            }
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        error: function (error) {
-            console.log(`Error ${error}`);
-
-        }
-    });
-}
-
-checkSelection = (id, field) => {
-    window.location.href = "shop.php?id=" + id + "&field=" + field;
-}
-
-qtryChange = (cart_id, field, action, currentQty) => {
-
-    let val = 0;
-
-    if (action == 1) {
-        var currentQtyint = parseInt(currentQty);
-        let sum = currentQtyint + 1;
-        val = sum.toString();
-    } else {
-        var currentQtyint = parseInt(currentQty);
-        let sum = currentQtyint - 1;
-        val = sum.toString();
+                } else { errorMessage("Please Enter Description"); }
+            } else { errorMessage("Please enter Job Location"); }
+        } else { errorMessage("Please Enter Title"); }
     }
 
-
-    var data = {
-        cart_id: cart_id,
-        field: field,
-        value: val,
-    }
-
-    $.ajax({
-        method: "POST",
-        url: HOME_API_PATH + "editQty",
-        data: data,
-        success: function ($data) {
-            console.log($data);
-            successToast();
-        },
-        error: function (error) {
-            console.log(`Error ${error}`);
-        }
-    });
-
 }
 
-checkOut = (form) => {
+
+applyJob = (form) => {
     var formData = new FormData(form);
 
 
-    if (formData.get('shipping_address').trim() != '') {
-        if (formData.get('billing_address').trim() != '') {
-
-            if (formData.get('total') > 0) {
-
-                var data = {
-                    customer_id: formData.get('customer_id'),
-                    shipping_address: formData.get('shipping_address'),
-                    billing_address: formData.get('billing_address'),
-                    total: formData.get('total'),
-                }
-
-                $.ajax({
-                    method: "POST",
-                    url: HOME_API_PATH + "checkoutOrder",
-                    data: data,
-                    success: function ($data) {
-                        console.log($data);
-                        successToastRedirect("orders.php");
-                    },
-                    error: function (error) {
-                        console.log(`Error ${error}`);
-                    }
-                });
-
-            } else { errorMessage("Please Select adleast one Item to Buy!"); }
-
-        } else { errorMessage("Please Enter Billing Address"); }
-    } else { errorMessage("Please Enter Shipping Address"); }
-
-
-}
-
-
-placeOrder = (customer_id, total) => {
-
-    var data = {
-        customer_id: customer_id,
-        total: total,
-    }
-
-    if (total > 0) {
-
-
-        $.ajax({
-            method: "POST",
-            url: HOME_API_PATH + "placeOrder",
-            data: data,
-            success: function ($data) {
-                console.log($data);
-                successToastRedirect("order.php");
-            },
-            error: function (error) {
-                console.log(`Error ${error}`);
-            }
-        });
-    } else { errorMessage("Please Add item to cart!"); }
-
-}
-
-cartDelete = (id, table, id_fild) => {
-
-    Swal.fire({
-        title: 'Are you sure? this prodcut will be delete',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            var data = {
-                id: id,
-                table: table,
-                id_fild: id_fild,
-            }
-
-            console.log(data);
+    if (formData.get('additional_details').trim() != '') {
+        if (formData.get('file') != '') {
 
             $.ajax({
                 method: "POST",
-                url: HOME_API_PATH + "permanantDeleteData",
-                data: data,
+                url: HOME_API_PATH + "applyJob",
+                data: formData,
                 success: function ($data) {
                     console.log($data);
-                    successToastDelete();
+                    if ($data > 0) {
+                        errorMessage("You Already Applied this Job")
+                    } else {
+                        successToastRedirect("joblist.php");
+                    }
                 },
+                cache: false,
+                contentType: false,
+                processData: false,
                 error: function (error) {
                     console.log(`Error ${error}`);
                 }
             });
-            Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-            )
-        }
-    })
+
+        } else { errorMessage("Please Upload Image"); }
+    } else { errorMessage("Please Enter Additional Details"); }
+
 
 }
+
+
 //profile changers
 
 changeEmail = (form) => {
@@ -513,5 +392,5 @@ search = (form) => {
     console.log("clicked");
     var formData = new FormData(form);
     var keyword = formData.get('key');
-    window.location.href = "search.php?key=" + keyword;
+    window.location.href = "job-listings.php?key=" + keyword;
 }

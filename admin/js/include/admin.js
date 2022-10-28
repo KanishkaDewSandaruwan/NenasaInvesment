@@ -57,15 +57,15 @@ login = (myForm) => {
 
     $.ajax({
         method: "POST",
-        url: API_PATH + "login",
+        url: HOME_API_PATH + "login",
         data: formData,
         success: function ($data) {
             console.log($data);
             if ($data > 0) {
                 if (formData.get("email") == 'admin') {
-                    window.location.href = 'index.php';
+                    window.location.href = 'admin/index.php';
                 } else {
-                    window.location.href = '../index.php';
+                    window.location.href = 'index.php';
                 }
             } else {
                 iziToast.error({
