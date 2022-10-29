@@ -1,9 +1,9 @@
-uploadImage = (ele) => {
+uploadImageJob = (ele) => {
     var formData = new FormData(ele);
 
     $.ajax({
         method: "POST",
-        url: API_PATH + "imageUploadCategory",
+        url: HOME_API_PATH + "imageuploadImageJob",
 
 
         data: formData,
@@ -20,12 +20,12 @@ uploadImage = (ele) => {
     });
 }
 
-uploadImageservice = (ele) => {
+uploadImageCompany = (ele) => {
     var formData = new FormData(ele);
 
     $.ajax({
         method: "POST",
-        url: API_PATH + "imageUploadService",
+        url: HOME_API_PATH + "imageUploadCompany",
 
 
         data: formData,

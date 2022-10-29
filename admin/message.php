@@ -14,7 +14,8 @@
 
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_settings-panel.html -->
-       
+
+            
             <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
             <?php include "pages/sidebar.php" ?>
@@ -28,34 +29,36 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="table-responsive pt-3">
+
                                     <table id="datatablesSimple">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Review</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Subject</th>
+                                                <th>Message</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             <?php 
-                                $getall = getAllReviews();
+                                $getall = getAllMessages();
 
                                 while($row=mysqli_fetch_assoc($getall)){ ?>
                                             <tr>
 
-                                                <td>#<?php echo $row['review_id']; ?></td>
-                                                <td><?php echo $row['review_review']; ?></td>
-                                                <td><?php echo $row['review_name']; ?></td>
-                                                <td><?php echo $row['review_email']; ?></td>
+                                                <td>#<?php echo $row['contact_id']; ?></td>
+                                                <td><?php echo $row['name']; ?></td>
+                                                <td><?php echo $row['email']; ?></td>
+                                                <td><?php echo $row['subject']; ?></td>
+                                                <td><?php echo $row['message']; ?></td>
                                                 <td><?php echo $row['date_updated']; ?></td>
                                                 <td>
 
                                                     <button type="button"
-                                                        onclick="permenantdeleteData(<?php echo $row['review_id']; ?>, 'review', 'review_id' )"
-                                                        class="btn btn-darkblue"> <i class="fa-solid fa-trash"></i>
+                                                        onclick="permenantdeleteData(<?php echo $row['contact_id']; ?>, 'contact', 'contact_id' )"
+                                                        class="btn btn-primary"> <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>

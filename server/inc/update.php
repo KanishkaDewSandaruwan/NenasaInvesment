@@ -49,43 +49,6 @@ function editImages($data, $img)
     return mysqli_query($con, $sql);
 }
 
-//qty reduce code
-
-function productQtyReduce($pid, $qty)
-{
-    include 'connection.php';
-
-    $viewProducts = "SELECT * FROM products WHERE pid = '$pid'";
-    $res = mysqli_query($con, $viewProducts);
-    $row = mysqli_fetch_assoc($res);
-
-    $value = $row['product_qty'] - $qty;
-
-    $sql = "UPDATE products SET product_qty = '$value', date_updated = now() where pid = $pid";
-    return mysqli_query($con, $sql);
-}
-
-function increaseQtyProduct($data)
-{
-    include 'connection.php';
-
-    $serve_id = $data['serve_id'];
-
-    $viewProducts = "SELECT * FROM server_products WHERE serve_id = '$serve_id'";
-    $res = mysqli_query($con, $viewProducts);
-    $row = mysqli_fetch_assoc($res);
-
-    $pid = $row['pid'];
-
-    $exsactProducts = "SELECT * FROM products WHERE pid = '$pid'";
-    $res2 = mysqli_query($con, $exsactProducts);
-    $row2 = mysqli_fetch_assoc($res2);
-
-    $value = $row['serve_qty'] + $row2['product_qty'];
-
-    $sql = "UPDATE products SET product_qty = '$value', date_updated = now() where pid = $pid";
-    return mysqli_query($con, $sql);
-}
 
 function changePageSettings($data)
 {
@@ -118,5 +81,33 @@ function editQtyinCart($data)
     $sql = "UPDATE cart SET $field = '$value', date_updated = now() where cart_id = $cart_id";
     return mysqli_query($con, $sql);	
 }
+
+function changeDesc($data)
+{
+    include 'connection.php';
+    $id = $data['id'];
+    $table = $data['table'];
+    $value = $data['company_description'];
+    $id_field = $data['id_field'];
+    $field = $data['field'];
+
+    $sql = "UPDATE $table SET $field = '$value' WHERE $id_field = '$id'";
+    return mysqli_query($con, $sql);
+}
+
+function changeDescJob($data)
+{
+    include 'connection.php';
+    $id = $data['id'];
+    $table = $data['table'];
+    $value = $data['job_description'];
+    $id_field = $data['id_field'];
+    $field = $data['field'];
+
+    $sql = "UPDATE $table SET $field = '$value' WHERE $id_field = '$id'";
+    return mysqli_query($con, $sql);
+}
+
+
 
 ?>

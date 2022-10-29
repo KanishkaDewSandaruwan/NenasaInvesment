@@ -16,10 +16,30 @@ include 'inc/add.php';
 else if (isset($_GET['function_code']) && $_GET['function_code'] == 'updateData') {
     updateDataTable($_POST);
 }
-else if (isset($_GET['function_code']) && $_GET['function_code'] == 'imageUploadService') {
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'changeDescription') {
+    changeDesc($_POST);
+}
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'changeDescriptionJob') {
+    changeDescJob($_POST);
+}
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'imageUploadCompany') {
 
     $img = $_FILES['file']['name'];
-    $target_dir = "uploads/service/";
+    $target_dir = "uploads/company/";
+    $target_file = $target_dir . basename($img);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $extensions_arr = array("jpg", "jpeg", "png", "gif", "jfif", "svg", "webp");
+
+    if (in_array($imageFileType, $extensions_arr)) {
+        move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $img);
+        editImages($_POST, $img);
+    }
+
+}
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'imageuploadImageJob') {
+
+    $img = $_FILES['file']['name'];
+    $target_dir = "uploads/job/";
     $target_file = $target_dir . basename($img);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $extensions_arr = array("jpg", "jpeg", "png", "gif", "jfif", "svg", "webp");
@@ -105,6 +125,8 @@ else if (isset($_GET['function_code']) && $_GET['function_code'] == 'login') {
     checkUserEmail($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkPassword') {
     checkuserPassword($_POST);
+}else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkPasswordCompany') {
+    checkCompanyPassword($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'getServiceData') {
     getAllServiceByIDHome($_POST); 
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addBooking') {

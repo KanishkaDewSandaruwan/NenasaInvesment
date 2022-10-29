@@ -7,9 +7,6 @@
             <a href="message.php"><i class="typcn typcn-mail"></i></a>
         </div>
         <div class="nav-link">
-            <a href="javascript:;"><i class="typcn typcn-folder"></i></a>
-        </div>
-        <div class="nav-link">
             <a href="job.php"><i class="typcn typcn-document-text"></i></a>
         </div>
     </div>
@@ -18,13 +15,7 @@
             <li class="nav-item ml-0">
                 <h4 class="mb-0">Dashboard</h4>
             </li>
-            <li class="nav-item">
-                <div class="d-flex align-items-baseline">
-                    <p class="mb-0">Home</p>
-                    <i class="typcn typcn-chevron-right"></i>
-                    <p class="mb-0">Main Dahboard</p>
-                </div>
-            </li>
+
         </ul>
 
     </div>

@@ -23,10 +23,15 @@
 
                 <nav class="mx-auto site-navigation">
                     <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                        <li><a href="index.php">Home</a></li>
+                        <li><a href="index.php" class="nav-link active">Home</a></li>
                         <li><a href="about.php">About</a></li>
                         <li><a href="job-listings.php">Job Listings</a></li>
                         <li><a href="contact.php">Contact</a></li>
+                        
+                        <?php if(isset($_SESSION['company']) && isset($_SESSION['customer'])) : ?>
+                        <li><a href="company_profile.php">Company</a></li>
+                        <li><a href="profile.php">User</a></li>
+                        <?php endif; ?>
                         <li class="d-lg-none"><a href="post-job.php"><span class="mr-2">+</span> Post a Job</a></li>
                         <li class="d-lg-none"><a href="login.php">Log In</a></li>
                     </ul>
@@ -37,11 +42,27 @@
                         <a href="post-job.php"
                             class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-add"></span>Post a Job</a>
-                        <?php if(isset($_SESSION['customer'])) : ?>
+
+                        <?php if(isset($_SESSION['company']) && isset($_SESSION['customer'])) : ?>
                         <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
-                        class="mr-2 icon-lock_outline"></span>Log Out</a>
+                                class="mr-2 icon-lock_outline"></span>Log Out</a>
+
+
+                        <?php elseif(isset($_SESSION['customer'])) : ?>
+                        <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                                class="mr-2 icon-lock_outline"></span>Log Out</a>
                         <a href="profile.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
-                                class="mr-2 icon-user"></span>Profile</a>
+                                class="mr-2 icon-user"></span>User Profile</a>
+
+
+                        <?php elseif(isset($_SESSION['company'])) : ?>
+                        <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                                class="mr-2 icon-lock_outline"></span>Log Out</a>
+                        <a href="company_profile.php"
+                            class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                                class="mr-2 icon-user"></span>Company Profile</a>
+
+
                         <?php else : ?>
                         <a href="login.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log In</a>

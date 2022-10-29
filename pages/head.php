@@ -13,8 +13,6 @@ $subheader_src = "server/uploads/settings/".$subheader;
 $about = $res['about_image'];
 $about_src = "server/uploads/settings/".$about;
 
-$rotate = $res['header_rotate_image'];
-$rotate_src = "server/uploads/settings/".$rotate;
 
 ?>
 

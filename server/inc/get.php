@@ -20,6 +20,18 @@ function checkuserPassword($data)
     echo $count;
 }
 
+function checkCompanyPassword($data)
+{
+    include 'connection.php';
+    $company_id = $data['company_id'];
+    $company_password = $data['company_password'];
+
+    $viewcat = "SELECT * FROM company WHERE is_deleted = 0 AND company_password = '$company_password' AND company_id = '$company_id' ";
+    $result = mysqli_query($con, $viewcat);
+    $count = mysqli_num_rows($result);
+    echo $count;
+}
+
 function checkCompanyByEmail($company_login_email)
 {
 	include 'connection.php';
@@ -50,18 +62,13 @@ function getAllcustomerById($customer_id)
     return mysqli_query($con, $q1);
 }
 
-function checkBookingDate($newStartTime, $newEndTime, $service_id){
-
+function getCompanyById($company_id)
+{
     include 'connection.php';
 
-    $viewbooking = "SELECT * FROM booking WHERE (is_deleted = 0 AND service_id = '$service_id') AND
-	NOT(end_time < '$newStartTime' OR booking_date > '$newEndTime')";
-
-    $result = mysqli_query($con, $viewbooking);
-    $count = mysqli_num_rows($result);
-    return $count;
+    $q1 = "SELECT * FROM company WHERE is_deleted = '0' AND company_id = '$company_id'";
+    return mysqli_query($con, $q1);
 }
-
 
 function getAllcustomers()
 {
@@ -78,11 +85,11 @@ function getLoginAdmin($data)
     $email = $data['email'];
     $password = $data['password'];
 
-    $loginAdmin = "SELECT * FROM company WHERE company_login_email = '$email' AND company_password ='$password'";
+    $loginAdmin = "SELECT * FROM company WHERE company_login_email = '$email' AND permision = '1'  AND company_password ='$password'";
     $countloginAdmin = mysqli_query($con, $loginAdmin);
     $counts_loginAdmin = mysqli_num_rows($countloginAdmin);
 
-    $loginCustomer = "SELECT * FROM customer WHERE email = '$email' AND password ='$password'";
+    $loginCustomer = "SELECT * FROM customer WHERE email = '$email' AND permision = '1' AND password ='$password'";
     $count_loginCustomer = mysqli_query($con, $loginCustomer);
     $counts_loginCustomer = mysqli_num_rows($count_loginCustomer);
 
@@ -139,6 +146,22 @@ function applyListcustomer_ID($customer_id)
     return mysqli_query($con, $q1);
 }
 
+function jobListcompany_ID($company_id)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM job join company on company.company_id = job.company_id WHERE job.company_id='$company_id' AND job.is_deleted='0'";
+    return mysqli_query($con, $q1);
+}
+
+function jobListJob_ID($job_id)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM job WHERE job_id = '$job_id'";
+    return mysqli_query($con, $q1);
+}
+
 function checkApply($job_title)
 {
     include 'connection.php';
@@ -152,6 +175,14 @@ function checkCompany($company_login_email)
     include 'connection.php';
 
     $q1 = "SELECT * FROM company WHERE company_login_email='$company_login_email' AND is_deleted='0'";
+    return mysqli_query($con, $q1);
+}
+
+function getAllCompany()
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM company WHERE is_deleted='0'";
     return mysqli_query($con, $q1);
 }
 

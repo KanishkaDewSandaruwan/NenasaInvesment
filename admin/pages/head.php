@@ -14,4 +14,4 @@
   <link rel="shortcut icon" href="images/logo.jpg" />
 
   <?php include '../server/api.php'; ?>
-<!-- <?php include 'admin.php'; ?> -->
+ <?php include 'admin.php'; ?> 

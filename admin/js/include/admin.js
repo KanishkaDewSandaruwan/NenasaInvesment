@@ -123,7 +123,29 @@ changeDescription = (form) => {
         data: fd,
         success: function ($data) {
             console.log($data);
-            loading("Product Description Saving Success..")
+            loading("Company Description Saving Success..")
+
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        error: function (error) {
+            console.log(`Error ${error}`);
+        }
+    });
+
+}
+
+changeDescriptionJobs = (form) => {
+    let fd = new FormData(form);
+
+    $.ajax({
+        method: "POST",
+        url: HOME_API_PATH + "changeDescriptionJob",
+        data: fd,
+        success: function ($data) {
+            console.log($data);
+            loading("Job Description Saving Success..")
 
         },
         cache: false,

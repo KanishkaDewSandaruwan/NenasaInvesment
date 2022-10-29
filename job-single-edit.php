@@ -16,8 +16,8 @@
     </div> <!-- .site-mobile-menu -->
 
 
-    <!-- NAVBAR -->
-    <header class="site-navbar mt-3">
+      <!-- NAVBAR -->
+      <header class="site-navbar mt-3">
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="site-logo col-6"><a href="index.php">Nenasa Invesment</a></div>
@@ -85,89 +85,107 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold">Post A Job</h1>
+                    <h1 class="text-white font-weight-bold">Change Job</h1>
                     <div class="custom-breadcrumbs">
                         <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                        <a href="#">Job</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Post a Job</strong></span>
+                        <span class="text-white"><strong>Change Job</strong></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <?php 
+$getall = jobListJob_ID($_REQUEST['job_id']);
+$row=mysqli_fetch_assoc($getall);
+$img = $row['job_image'];
+$img_src = "server/uploads/job/" . $img; 
+$job_id = $row['job_id']; ?>
 
-
-    <section class="site-section">
+    <section class="site-section" id="next-section">
         <div class="container">
-
-            <form class="p-4 p-md-5 border rounded" method="post">
-                <div class="row align-items-center mb-5">
-                    <div class="col-lg-8 mb-4 mb-lg-0">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <h2>Post A Job</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="row">
-                            <div class="col-6">
-                                <a href="#" class="btn btn-block btn-light btn-md"><span
-                                        class="icon-open_in_new mr-2"></span>Preview</a>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" onclick="addJob(this.form)"
-                                    class="btn btn-block btn-primary btn-md">Save Job</button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <a href="company_joblist.php" class="btn btn-primary">Job List</a>
                 </div>
-                <div class="row mb-5">
-                    <div class="col-lg-12">
-                        <h3 class="text-black mb-5 border-bottom pb-2">Job Details</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0 mt-5">
+                    <form action="#" class="" method="post">
 
-                        <div class="form-group">
-                            <label for="company-website-tw d-block">Upload Featured Image</label> <br>
-                            <input class="form-control" required name="file" type="file" id="file">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-primary">Company Profile Settings</h4>
                         </div>
 
                         <div class="form-group">
                             <label for="job-title">Job Title</label>
                             <input type="text" class="form-control" id="job_title" name="job_title"
-                                placeholder="Enter Title">
+                                onchange='updateDataFromHome(this, "<?php echo $job_id; ?>","job_title", "job", "job_id")'
+                                value="<?php echo $row['job_title']; ?>" placeholder="Enter Title">
                         </div>
                         <div class="form-group">
                             <label for="job-location">Location</label>
                             <input type="text" class="form-control" id="job_location" name="job_location"
-                                placeholder="e.g. New York">
-
-                            <input type="hidden" class="form-control" id="company_id" name="company_id"
-                                value="<?php echo $_SESSION['company']; ?>">
+                                onchange='updateDataFromHome(this, "<?php echo $job_id; ?>","job_location", "job", "job_id")'
+                                value="<?php echo $row['job_location']; ?>" placeholder="e.g. New York">
                         </div>
 
                         <div class="form-group">
                             <label for="job-region">Job Region</label>
-                            <select class="selectpicker border rounded" id="type" name="type" data-style="btn-black"
-                                data-width="100%" data-live-search="true" title="Select Region">
-                                <option value="0">Full Time</option>
-                                <option value="1">Part Time</option>
+                            <select
+                                onchange="updateDataFromHome(this, '<?php echo $job_id; ?>', 'type', 'job', 'job_id');"
+                                id="type <?php echo $job_id; ?>" class='form-control norad tx12'
+                                name="type" type='text'>
+                                <option value="0" <?php if ($row['type'] == "0" ) echo "selected" ; ?>>
+                                    Full Time
+                                </option>
+                                <option value="1" <?php if ($row['type'] == "1" ) echo "selected" ; ?>>
+                                    Part Time
+                                </option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="job-region">Job Publish</label>
-                            <select class="selectpicker border rounded" id="job_active" name="job_active"
-                                data-style="btn-black" data-width="100%" title="Select Region">
-                                <option value="0">Active</option>
-                                <option value="1">Deactive</option>
+                            <select
+                                onchange="updateDataFromHome(this, '<?php echo $job_id; ?>', 'job_active', 'job', 'job_id');"
+                                id="job_active <?php echo $job_id; ?>" class='form-control norad tx12'
+                                name="job_active" type='text'>
+                                <option value="0" <?php if ($row['job_active'] == "0" ) echo "selected" ; ?>>
+                                    Active
+                                </option>
+                                <option value="1" <?php if ($row['job_active'] == "1" ) echo "selected" ; ?>>
+                                    Deactive
+                                </option>
                             </select>
                         </div>
 
 
 
+
                         <div class="form-group">
-                            <label for="job-description">Job Description</label>
-                            <textarea id="job_description" name="job_description"></textarea>
+                            <label for="job-title">Closing Date</label>
+                            <input type="date" class="form-control" id="closing_date" name="closing_date"
+                                onchange='updateDataFromHome(this, "<?php echo $job_id; ?>","closing_date", "job", "job_id")'
+                                value="<?php echo $row['closing_date']; ?>" placeholder="Closing Date">
+                        </div>
+
+                        <div class="form-group mt-5">
+                            <form enctype="multipart/form-data" method="POST">
+                                <div class="mb-3">
+                                    <textarea id="job_description"
+                                        name="job_description"><?php echo $row['job_description']; ?></textarea>
+
+                                    <input class="form-control" value="<?php echo $row['job_id'] ?>" name="id"
+                                        type="hidden" id="id">
+                                    <input class="form-control" value="job" name="table" type="hidden" id="table">
+                                    <input class="form-control" value="job_id" name="id_field" type="hidden"
+                                        id="id_field">
+                                    <input class="form-control" value="job_description" name="field" type="hidden"
+                                        id="field">
+                                    <button type="button" onclick="changeDescriptionJobs(this.form)"
+                                        class="btn btn-primary">Update Description</button>
+                                </div>
+                            </form>
                             <script>
                             $('#job_description').summernote({
                                 placeholder: 'Job Description',
@@ -182,38 +200,43 @@
                                 ]
                             });
                             </script>
+
                         </div>
 
                         <div class="form-group">
-                            <label for="job-title">Closing Date</label>
-                            <input type="date" class="form-control" id="closing_date" name="closing_date"
-                                placeholder="Closing Date">
+                            <label for="company-website-tw d-block">Upload Logo</label> <br>
+                            <div class="form-group mt-3">
+                                <form enctype="multipart/form-data" method="POST">
+                                    <div class="mb-3" style="background-color: black;">
+                                        <input class="form-control" value="<?php echo $row['job_id'] ?>" name="id"
+                                            type="hidden" id="id">
+                                        <input class="form-control" value="job_id" name="id_fild" type="hidden"
+                                            id="id_fild">
+                                        <input class="form-control" value="job" name="table" type="hidden" id="table">
+                                        <input class="form-control" value="job_image" name="field" type="hidden"
+                                            id="field">
+                                        <input onchange="uploadImageJob(this.form);" class="form-control" name="file"
+                                            type="file" id="formFile">
+                                    </div>
+
+                                    <img width="50%" src='<?php echo $img_src; ?>'>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center experience mt-5">
+
+                            <a href="company_joblist.php" class="border px-3 p-1 add-experience text-primary"><i
+                                    class="fa fa-lock"></i>&nbsp; Back</a>
+                            <button class="btn btn-primary text-white btn-md border px-3 p-1 add-experience"
+                                onclick="deleteDataFromHome(<?php echo $row['job_id']; ?>, 'company', 'job_id')"><i
+                                    class="fa fa-trash"></i>&nbsp;Delete</button>
                         </div>
 
 
-                    </div>
-
-
+                    </form>
                 </div>
-                <div class="row align-items-center mb-5">
-
-                    <div class="col-lg-4 ml-auto">
-                        <div class="row">
-                            <div class="col-6">
-                                <a href="#" class="btn btn-block btn-light btn-md"><span
-                                        class="icon-open_in_new mr-2"></span>Preview</a>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" onclick="addJob(this.form)"
-                                    class="btn btn-block btn-primary btn-md">Save Job</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </section>
-
 
 
     <?php include 'pages/footer.php'; ?>

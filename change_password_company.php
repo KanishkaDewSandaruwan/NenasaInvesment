@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 <?php include 'pages/head.php'; ?>
-<?php include 'pages/auth.php'; ?>
 
 
 <div class="site-wrap">
@@ -84,104 +83,78 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold">Apply Job List</h1>
+                    <h1 class="text-white font-weight-bold">Profile</h1>
                     <div class="custom-breadcrumbs">
                         <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Apply Job List</strong></span>
+                        <span class="text-white"><strong>Profile</strong></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="site-section">
-        <div class="container">
+    <?php 
+$getall = getCompanyById($_SESSION['company']);
+$row=mysqli_fetch_assoc($getall);
 
-            <div class="row mb-5 justify-content-center">
-                <div class="col-md-7 text-center">
-                    <h2 class="section-title mb-2">   
-                <?php
-                $job = applyListcustomer_ID($_SESSION['customer']);
-                echo mysqli_num_rows($job);?> Job Applyied</h2>
+
+$img = $row['company_logo'];
+$img_src = "server/uploads/company/" . $img; 
+
+$company_id = $row['company_id']; ?>
+    <section class="site-section" id="next-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <a href="joblist.php" class="btn btn-primary">My Appllication</a>
+                    <a href="profile.php" class="btn btn-primary">My Profile</a>
                 </div>
             </div>
- 
-
-            <ul class="job-listings mb-5">
-                <?php
-
-                $job = applyListcustomer_ID($_SESSION['customer']);
-                $count =  mysqli_num_rows($job);
-
-                if( $count > 0){
-
-                while ($row3 = mysqli_fetch_assoc($job)) {
-                    $apply_id = $row3['apply_id'];
-                    $img = $row3['job_image'];
-                    $img_src = "server/uploads/job/" . $img;?>
-
-                    
-                    <li class="job-listing d-block d-sm-flex mt-2 pb-3 pb-sm-0 align-items-center">
-                        <div class="job-listing-logo">
-                            <img src="<?php echo $img_src; ?>" width="100%" alt="Free Website Template by Free-Template.co"
-                                class="img-fluid">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0 mt-5">
+                    <form method="POST" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+                        <div class="col-md-12 mt-2">
+                            <label for="current_password" class="form-label">Current Password</label>
+                            <input type="password" class="form-control" name="current_password" id="current_password"
+                                placeholder="Current Password Name" required>
                         </div>
 
-                        <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                            <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                                <h2><?php echo $row3['job_title']; ?></h2>
-                                <strong>Closing Date : <?php echo $row3['closing_date']; ?></strong>
-                                <p><?php echo $row3['job_title']; ?></p>
-                                <?php if ($row3['apply_status'] !="3" || $row3['apply_status'] !="2" ) : ?>
-                                <select
-                                    onchange='updateDataFromHome(this, "<?php echo $apply_id ; ?>","apply_status", "apply", "apply_id ")'
-                                    id="apply_status <?php echo $apply_id ; ?>" class='form-control norad tx12'
-                                    name="apply_status" type='text'>
-                                    <option value="0" <?php if ($row3['apply_status']=="0") echo "selected"; ?> disabled>
-                                       Pending
-                                    </option>
-                                    <option value="3" <?php if ($row3['apply_status']=="3") echo "selected"; ?>>
-                                        Canceled
-                                    </option>
-                                </select>
-                                <?php endif; ?>
-                            </div>
-                            <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                                <span class="icon-room"></span> <?php echo $row3['job_location']; ?>
-                            </div>
-                            <div class="job-listing-meta">
-                                <?php if($row3['apply_status'] == 0) : ?>
-                                <span class="badge badge-info">Pending</span>
-                                <?php elseif($row3['apply_status'] == 1) : ?>
-                                <span class="badge badge-success">Reviewed</span>
-                                <?php elseif($row3['apply_status'] == 3) : ?>
-                                <span class="badge badge-danger">Canceled</span>
-                                <?php endif; ?>
+                        <div class="col-md-12 mt-4">
+                            <label for="new_password" class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="new_password" id="new_password"
+                                placeholder="New Password" required>
+                        </div>
+
+                        <div class="col-md-12 mt-4">
+                            <label for="confirm_new_password" class="form-label">Confirm New
+                                Password</label>
+                            <input type="password" class="form-control" name="confirm_new_password"
+                                id="confirm_new_password" placeholder="Confirm New Password" required>
+                        </div>
+
+                        <div class="col-md-12 mt-4">
+                            <input type="hidden" class="form-control" name="company_id"
+                                value="<?php echo $_SESSION['company']; ?>" id="company_id">
+                        </div>
+                        <div class="col-md-12 mt-5">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <button type="button" onclick="changePasswordCompany(this.form)"
+                                        class="btn btn-primary">Change Password</button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a href="profile.php" class="btn btn-secondary" data-bs-dismiss="modal">Back
+                                        to
+                                        Profile</a>
+                                </div>
                             </div>
                         </div>
-                    </li>
-                    <?php }  }else{?>
-                        <h1>No Data Found</h1>
-                    <?php }?>
-            </ul>
 
-        </div>
-    </section>
+                    </form>
+                </div>
 
-    <section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h2 class="text-white">Looking For A Job?</h2>
-                    <p class="mb-0 text-white lead">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora
-                        adipisci impedit.</p>
-                </div>
-                <div class="col-md-3 ml-auto">
-                    <a href="register.php" class="btn btn-warning btn-block btn-lg">Sign Up</a>
-                </div>
             </div>
         </div>
     </section>
-
 
 
     <?php include 'pages/footer.php'; ?>

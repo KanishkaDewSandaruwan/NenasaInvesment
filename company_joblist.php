@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <?php include 'pages/head.php'; ?>
-<?php include 'pages/auth.php'; ?>
+<?php include 'pages/company.php'; ?>
 
 
 <div class="site-wrap">
@@ -15,8 +15,9 @@
         <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
 
-    <!-- NAVBAR -->
-    <header class="site-navbar mt-3">
+
+        <!-- NAVBAR -->
+        <header class="site-navbar mt-3">
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="site-logo col-6"><a href="index.php">Nenasa Invesment</a></div>
@@ -84,10 +85,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold">Apply Job List</h1>
+                    <h1 class="text-white font-weight-bold">Job List</h1>
                     <div class="custom-breadcrumbs">
                         <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Apply Job List</strong></span>
+                        <span class="text-white"><strong>Job List</strong></span>
                     </div>
                 </div>
             </div>
@@ -98,70 +99,56 @@
 
             <div class="row mb-5 justify-content-center">
                 <div class="col-md-7 text-center">
-                    <h2 class="section-title mb-2">   
-                <?php
-                $job = applyListcustomer_ID($_SESSION['customer']);
+                    <h2 class="section-title mb-2">
+                        <?php
+                $job = jobListcompany_ID($_SESSION['company']);
                 echo mysqli_num_rows($job);?> Job Applyied</h2>
                 </div>
             </div>
- 
+
 
             <ul class="job-listings mb-5">
                 <?php
 
-                $job = applyListcustomer_ID($_SESSION['customer']);
+                $job = jobListcompany_ID($_SESSION['company']);
                 $count =  mysqli_num_rows($job);
 
                 if( $count > 0){
 
                 while ($row3 = mysqli_fetch_assoc($job)) {
-                    $apply_id = $row3['apply_id'];
+                    $job_id = $row3['job_id'];
                     $img = $row3['job_image'];
                     $img_src = "server/uploads/job/" . $img;?>
 
-                    
-                    <li class="job-listing d-block d-sm-flex mt-2 pb-3 pb-sm-0 align-items-center">
-                        <div class="job-listing-logo">
-                            <img src="<?php echo $img_src; ?>" width="100%" alt="Free Website Template by Free-Template.co"
-                                class="img-fluid">
-                        </div>
 
-                        <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                            <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                                <h2><?php echo $row3['job_title']; ?></h2>
-                                <strong>Closing Date : <?php echo $row3['closing_date']; ?></strong>
-                                <p><?php echo $row3['job_title']; ?></p>
-                                <?php if ($row3['apply_status'] !="3" || $row3['apply_status'] !="2" ) : ?>
-                                <select
-                                    onchange='updateDataFromHome(this, "<?php echo $apply_id ; ?>","apply_status", "apply", "apply_id ")'
-                                    id="apply_status <?php echo $apply_id ; ?>" class='form-control norad tx12'
-                                    name="apply_status" type='text'>
-                                    <option value="0" <?php if ($row3['apply_status']=="0") echo "selected"; ?> disabled>
-                                       Pending
-                                    </option>
-                                    <option value="3" <?php if ($row3['apply_status']=="3") echo "selected"; ?>>
-                                        Canceled
-                                    </option>
-                                </select>
-                                <?php endif; ?>
-                            </div>
-                            <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                                <span class="icon-room"></span> <?php echo $row3['job_location']; ?>
-                            </div>
-                            <div class="job-listing-meta">
-                                <?php if($row3['apply_status'] == 0) : ?>
-                                <span class="badge badge-info">Pending</span>
-                                <?php elseif($row3['apply_status'] == 1) : ?>
-                                <span class="badge badge-success">Reviewed</span>
-                                <?php elseif($row3['apply_status'] == 3) : ?>
-                                <span class="badge badge-danger">Canceled</span>
-                                <?php endif; ?>
-                            </div>
+                <li class="job-listing d-block d-sm-flex mt-2 pb-3 pb-sm-0 align-items-center">
+                <a href="job-single-edit.php?job_id=<?php echo $job_id; ?>"></a>
+                    <div class="job-listing-logo">
+                        <img src="<?php echo $img_src; ?>" width="100%" alt="Free Website Template by Free-Template.co"
+                            class="img-fluid">
+                    </div>
+
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2><?php echo $row3['job_title']; ?></h2>
+                            <strong>Closing Date : <?php echo $row3['closing_date']; ?></strong>
+                            <p><?php echo $row3['job_title']; ?></p>
                         </div>
-                    </li>
-                    <?php }  }else{?>
-                        <h1>No Data Found</h1>
-                    <?php }?>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <span class="icon-room"></span> <?php echo $row3['job_location']; ?>
+                        </div>
+                        <div class="job-listing-meta">
+                            <?php if($row3['job_active'] == 0) : ?>
+                            <span class="badge badge-info">Active</span>
+                            <?php elseif($row3['job_active'] == 1) : ?>
+                            <span class="badge badge-danger">Deactive</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </li>
+                <?php }  }else{?>
+                <h1>No Data Found</h1>
+                <?php }?>
             </ul>
 
         </div>

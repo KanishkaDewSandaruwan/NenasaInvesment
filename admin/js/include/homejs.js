@@ -180,6 +180,27 @@ changeEmail = (form) => {
 
 }
 
+changeHomeDescription = (form) => {
+    let fd = new FormData(form);
+
+    $.ajax({
+        method: "POST",
+        url: HOME_API_PATH + "changeDescription",
+        data: fd,
+        success: function ($data) {
+            console.log($data);
+            loading("Company Description Saving Success..")
+            
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        error: function (error) {
+            console.log(`Error ${error}`);
+        }
+    });
+
+}
 
 changePassword = (form) => {
     var formData = new FormData(form);
@@ -219,6 +240,45 @@ changePassword = (form) => {
 
 }
 
+
+changePasswordCompany = (form) => {
+    var formData = new FormData(form);
+
+    if (formData.get('current_password').trim() != '') {
+        if (formData.get('new_password').trim() != '') {
+            if (formData.get('confirm_new_password').trim() != '') {
+                if (formData.get('new_password') === formData.get('confirm_new_password')) {
+                    if (checkPasswordCompany(formData.get('current_password'), formData.get('company_id')) > 0) {
+
+                        var data = {
+                            id: formData.get('company_id'),
+                            field: 'company_password',
+                            value: formData.get('new_password'),
+                            id_fild: 'company_id',
+                            table: 'company',
+                        }
+
+                        $.ajax({
+                            method: "POST",
+                            url: HOME_API_PATH + "updateData",
+                            data: data,
+                            success: function ($data) {
+                                console.log($data);
+                                successToastwithLogout();
+                            },
+                            error: function (error) {
+                                console.log(`Error ${error}`);
+                            }
+                        });
+
+                    } else { errorMessage("Current Password is Wrong"); }
+                } else { errorMessage("Password is Not Match!"); }
+            } else { errorMessage("Please Enter Phone Number"); }
+        } else { errorMessage("Please Enter New Password"); }
+    } else { errorMessage("Please Enter Current Password"); }
+
+}
+
 checkPassword = (password, customer_id) => {
     const data = {
         password: password,
@@ -228,6 +288,29 @@ checkPassword = (password, customer_id) => {
     $.ajax({
         method: "POST",
         url: HOME_API_PATH + "checkPassword",
+        data: data,
+        async: false,
+        success: function (data) {
+            values = data;
+            console.log(data);
+        },
+
+        error: function (error) {
+            console.log(`Error ${error}`);
+        }
+    });
+    return values;
+}
+
+checkPasswordCompany = (company_password, company_id) => {
+    const data = {
+        company_password: company_password,
+        company_id: company_id,
+    }
+    var values;
+    $.ajax({
+        method: "POST",
+        url: HOME_API_PATH + "checkPasswordCompany",
         data: data,
         async: false,
         success: function (data) {
