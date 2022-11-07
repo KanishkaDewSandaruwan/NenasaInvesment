@@ -21,7 +21,7 @@ function addCompany($data, $img)
 	if ($count == 0) {
 
 		$sql = "INSERT INTO company(company_name, tagline, company_description, website, facbook, twitter, lonkdin, company_login_email, company_password, company_admin_email, company_admin_phone, company_logo, is_deleted, date_updated,permision)
-		VALUES('$company_name', '$tagline', '$company_description', '$website', '$facbook' ,'$twitter' , '$lonkdin', '$company_login_email', '$company_password', '$company_admin_email', '$company_admin_phone', '$img', 0 , now(), 2)";
+		VALUES('$company_name', '$tagline', '$company_description', '$website', '$facbook' ,'$twitter' , '$lonkdin', '$company_login_email', '$company_password', '$company_admin_email', '$company_admin_phone', '$img', 0 , now(), 0)";
 		return mysqli_query($con, $sql);
 
 	}
@@ -96,6 +96,19 @@ function addMessage($data)
 	return mysqli_query($con, $sql);
 }
 
+function addreview($data)
+{
+    include 'connection.php';
+
+    $review_review = $data['review_review'];
+    $review_name = $data['review_name'];
+    $review_email = $data['review_email'];
+
+
+	$sql = "INSERT INTO review(review_review, review_name, review_email, date_updated) VALUES('$review_review', '$review_name', '$review_email', now())";
+	return mysqli_query($con, $sql);
+}
+
 
 function createCustomer($data)
 {
@@ -109,7 +122,7 @@ function createCustomer($data)
 	$gender = $data['gender'];
 	$password = $data['password'];
 
-	$sql = "INSERT INTO customer(name, email, phone, nic, address, gender, password, is_deleted, permision) VALUES('$name', '$email', '$phone', '$nic', '$address', '$gender', '$password', 0 , 2)";
+	$sql = "INSERT INTO customer(name, email, phone, nic, address, gender, password, is_deleted, permision) VALUES('$name', '$email', '$phone', '$nic', '$address', '$gender', '$password', 0 , 0)";
 	return mysqli_query($con, $sql);
 	
 }

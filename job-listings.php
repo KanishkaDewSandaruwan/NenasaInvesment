@@ -122,7 +122,7 @@
                 if(isset($_REQUEST['key']) && $_REQUEST['key'] != ""){
                     $job = getAllItemsSearch($_REQUEST['key']);
                 }else{
-                    $job = getAllJobs();
+                    $job = getAllJobsAvailable();
                 }
 
                 $count =  mysqli_num_rows($job);

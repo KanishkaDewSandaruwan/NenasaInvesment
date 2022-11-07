@@ -119,6 +119,8 @@ else if (isset($_GET['function_code']) && $_GET['function_code'] == 'login') {
     checkoutOrder($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addcontact') {
 	addMessage($_POST);
+}else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addreview') {
+	addreview($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addCustomer') {
     createCustomer($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkEmail') {

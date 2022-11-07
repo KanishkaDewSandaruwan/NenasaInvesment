@@ -81,13 +81,13 @@
                                                         onchange="updateData(this, '<?php echo $customer_id; ?>', 'permision', 'customer', 'customer_id');"
                                                         id="permision <?php echo $customer_id; ?>"
                                                         class='form-control norad tx12' name="permision" type='text'>
-                                                        <option value="1"
+                                                        <option value="0"
                                                             <?php if ($row['permision'] == "0" ) echo "selected" ; ?>>
-                                                            Active
-                                                        </option>
-                                                        <option value="2"
-                                                            <?php if ($row['permision'] == "1" ) echo "selected" ; ?>>
                                                             Deactive
+                                                        </option>
+                                                        <option value="1"
+                                                            <?php if ($row['permision'] == "1" ) echo "selected" ; ?>>
+                                                            Active
                                                         </option>
                                                     </select>
                                                 </td>

@@ -84,7 +84,7 @@
                                                 </td>
 
                                                 <td> <button type="button"
-                                                        onclick="deleteData(<?php echo $row['company_id']; ?>,'company', 'company_id')"
+                                                        onclick="deleteData(<?php echo $row['job_id']; ?>,'job', 'job_id')"
                                                         class="btn btn-darkblue"> <i class="fa-solid fa-trash"></i>
                                                     </button>
 

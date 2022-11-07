@@ -94,7 +94,8 @@
 
     <section class="site-section" id="next-section">
       <div class="container">
-        <div class="row">
+      <h3>Contact Us</h3>
+        <div class="row mt-5">
           <div class="col-lg-6 mb-5 mb-lg-0">
             <form action="#" class="" method="post">
 
@@ -150,6 +151,50 @@
 
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="site-section" id="next-section">
+      <div class="container">
+        <h3>Comments</h3>
+        <div class="row mt-5">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <form action="#" class="" method="post">
+
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="review_name">Your Name</label>
+                  <input type="text" name="review_name" id="review_name"  class="form-control">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                
+                <div class="col-md-12">
+                  <label class="text-black" for="review_email">Your Email</label> 
+                  <input type="email"  name="review_email" id="review_email"  class="form-control">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="text-black" for="review_review">Message</label> 
+                  <textarea name="review_review" cols="30" rows="7" class="form-control" placeholder="Write your notes or questions here..."></textarea>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input  onclick="addreview(this.form)" type="button" value="Add Review" class="btn btn-primary btn-md text-white">
+                </div>
+              </div>
+
+  
+            </form>
+          </div>
+
         </div>
       </div>
     </section>

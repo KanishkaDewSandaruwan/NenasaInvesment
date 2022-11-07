@@ -27,6 +27,34 @@ addContactMessage = (form) => {
 
 }
 
+addreview = (form) => {
+    var formData = new FormData(form);
+
+    if (formData.get('review_review').trim() != '') {
+        if (formData.get('review_name').trim() != '') {
+            if (formData.get('review_email').trim() != '') {
+                    $.ajax({
+                        method: "POST",
+                        url: HOME_API_PATH + "addreview",
+                        data: formData,
+                        success: function ($data) {
+                            console.log($data);
+                            successToast();
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        error: function (error) {
+                            console.log(`Error ${error}`);
+                        }
+                    });
+
+            } else { errorMessage("Please Enter Email"); }
+        } else { errorMessage("Please Enter Your Name"); }
+    } else { errorMessage("Please Enter Your Review"); }
+
+}
+
 
 addCompany = (form) => {
     let fd = new FormData(form);

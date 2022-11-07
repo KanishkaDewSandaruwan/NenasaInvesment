@@ -174,7 +174,7 @@ function checkCompany($company_login_email)
 {
     include 'connection.php';
 
-    $q1 = "SELECT * FROM company WHERE company_login_email='$company_login_email' AND is_deleted='0'";
+    $q1 = "SELECT * FROM company WHERE company_login_email='$company_login_email' AND is_deleted='0' ";
     return mysqli_query($con, $q1);
 }
 
@@ -199,6 +199,13 @@ function getAllJobs(){
 	include 'connection.php';
 
 	$job = "SELECT * FROM job WHERE is_deleted = 0";
+	return mysqli_query($con,$job);
+}
+
+function getAllJobsAvailable(){
+	include 'connection.php';
+
+	$job = "SELECT * FROM job WHERE is_deleted = 0 AND job_active = '0'";
 	return mysqli_query($con,$job);
 }
 

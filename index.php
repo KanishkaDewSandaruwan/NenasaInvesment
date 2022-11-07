@@ -120,7 +120,7 @@
 
             <ul class="job-listings mb-5">
                 <?php
-            $job = getAllJobs();
+            $job = getAllJobsAvailable();
             $count = 0;
             while ($row3 = mysqli_fetch_assoc($job)) {
                 $job_id = $row3['job_id'];
@@ -128,7 +128,7 @@
                 $img_src = "server/uploads/job/" . $img;
                 if($count < 6){ ?>
                 <li class="job-listing d-block d-sm-flex mt-2 pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
+                    <a href="job-single.php?job_id=<?php echo $job_id; ?>"></a>
                     <div class="job-listing-logo">
                         <img src="<?php echo $img_src; ?>" width="100%" alt="Free Website Template by Free-Template.co"
                             class="img-fluid">

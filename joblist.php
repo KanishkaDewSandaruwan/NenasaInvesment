@@ -129,7 +129,7 @@
                         <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
                             <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
                                 <h2><?php echo $row3['job_title']; ?></h2>
-                                <strong>Closing Date : <?php echo $row3['closing_date']; ?></strong>
+                                <strong>Closing Date : <?php echo $row3['closing_date']; ?></strong><br>
                                 <p><?php echo $row3['job_title']; ?></p>
                                 <?php if ($row3['apply_status'] !="3" || $row3['apply_status'] !="2" ) : ?>
                                 <select
@@ -143,6 +143,7 @@
                                         Canceled
                                     </option>
                                 </select>
+                                <a href="admin/download.php?apply_id=<?php echo $row3['apply_id'] ?>">Download</a>
                                 <?php endif; ?>
                             </div>
                             <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
