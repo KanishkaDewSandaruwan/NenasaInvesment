@@ -146,6 +146,14 @@ function applyListcustomer_ID($customer_id)
     return mysqli_query($con, $q1);
 }
 
+function applyListJob_ID($job_id)
+{
+    include 'connection.php';
+
+    $q1 = "SELECT * FROM apply join customer on customer.customer_id = apply.customer_id join job on job.job_id = apply.job_id WHERE apply.job_id='$job_id' AND apply.is_deleted='0'";
+    return mysqli_query($con, $q1);
+}
+
 function jobListcompany_ID($company_id)
 {
     include 'connection.php';

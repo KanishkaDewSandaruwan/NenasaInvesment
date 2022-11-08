@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
 <?php include 'pages/head.php'; ?>
+<?php include 'pages/auth.php'; ?>
 
 
-<div class="site-wrap" style="background-color: #497aab;">
+<div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
@@ -14,9 +15,8 @@
         <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
 
-
-       <!-- NAVBAR -->
-       <header class="site-navbar mt-3">
+    <!-- NAVBAR -->
+    <header class="site-navbar mt-3">
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="site-logo col-6"><a href="index.php">Nenasa Invesment</a></div>
@@ -84,82 +84,87 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold">Register Customer</h1>
+                    <h1 class="text-white font-weight-bold">Apply Job List</h1>
                     <div class="custom-breadcrumbs">
                         <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Register Customer</strong></span>
+                        <span class="text-white"><strong>Apply Job List</strong></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="site-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-5">
-                    <h2 class="mb-4">Sign Up To JobBoard</h2>
-                    <form action="#" class="p-4 border rounded bg-dark">
 
-                        <div class="form-floating mb-3">
-                            <label for="floatingText">Full name</label>
-                            <input type="text" class="form-control" id="floatingText" name="name" placeholder="jhondoe">
-                        </div>
-                        <div class="form-floating mb-3">
-                            <label for="floatingInput">Email address</label>
-                            <input type="email" class="form-control" id="floatingInput" name="email"
-                                placeholder="name@example.com">
-                        </div>
-                        <div class="form-floating mb-3">
-                            <label for="floatingText">Phone Number</label>
-                            <input type="text" class="form-control" id="floatingText" name="phone"
-                                placeholder="0753664078">
-                        </div>
-                        <div class="form-floating mb-3">
-                            <label for="floatingText">NIC Number</label>
-                            <input type="text" class="form-control" id="floatingText" name="nic"
-                                placeholder="862545789V">
-                        </div>
-                        <div class="form-floating mb-3">
-                            <label for="floatingText">Address</label>
-                            <input type="text" class="form-control" id="floatingText" name="address"
-                                placeholder="Address">
-                        </div>
-                        <div class="form-floating mb-3">
-                            <label for="floatingText">Gender</label>
-                            <select class="form-control" name="gender" id="gender" aria-label="Default select example">
-                                <option value="1" selected>Male</option>
-                                <option value="0">Female</option>
-                            </select>
-                        </div>
+            <div class="row mb-5 justify-content-center">
+                <div class="col-md-7 text-center">
+                    <h2 class="section-title mb-2">   
+                <?php
+                $job = applyListJob_ID($_REQUEST['job_id']);
+                $row3 = mysqli_fetch_assoc($job);
+                echo mysqli_num_rows($job);?> Users Applyied</h2>
+                <h2><?php echo $row3['job_title']; ?></h2>
+                <strong>Closing Date : <?php echo $row3['closing_date']; ?></strong><br>
+                </div>
+            </div>
+ 
 
-                        <div class="form-floating mb-4">
-                            <label for="floatingPassword">Password</label>
-                            <input type="password" class="form-control" name="password" id="password"
-                                placeholder="Password">
-                        </div>
+            <ul class="job-listings mb-5">
+                <?php
 
-                        <div class="form-floating mb-4">
-                            <label for="floatingPassword">Password</label>
-                            <input type="password" class="form-control" name="conf_password" id="conf_password"
-                                placeholder="Password">
-                        </div>
+                $job = applyListJob_ID($_REQUEST['job_id']);
+                $count =  mysqli_num_rows($job);
 
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input type="button" onclick="addCustomer(this.form)" value="Register"
-                                    class="btn px-4 btn-primary text-white">
-                                <a href="login.php" class="btn px-4 btn-primary text-white">Login</a>
-                                <a href="create-profile.php" class="btn px-4 btn-primary text-white">Register
-                                    Company</a>
+                if( $count > 0){
+
+                while ($row3 = mysqli_fetch_assoc($job)) {
+                    $apply_id = $row3['apply_id'];
+                    $customer_id = $row3['customer_id'];
+                    echo $customer_id;
+                    $img = $row3['job_image'];
+                    $img_src = "server/uploads/job/" . $img;?>
+
+                    
+                    <li class="job-listing d-block d-sm-flex mt-2 pb-3 pb-sm-0 align-items-center">
+
+                        <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                            <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">                               
+                                <p class="mt-2"><?php echo $row3['name']; ?><br/><?php echo $row3['email']; ?><br/><?php echo $row3['address']; ?> <a href="profile.php?customer_id=<?php echo $row3['customer_id']; ?>"> See More</a> <br>
+                                
+                                </p>
                             </div>
+                            <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                <a href="admin/download.php?apply_id=<?php echo $row3['apply_id'] ?>">Download Resume</a>
+                            </div>
+                            <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            </div>
+                            
                         </div>
+                    </li>
+                    <?php }  }else{?>
+                        <h1>No Data Found</h1>
+                    <?php }?>
+            </ul>
 
-                    </form>
+        </div>
+    </section>
+
+    <section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="text-white">Looking For A Job?</h2>
+                    <p class="mb-0 text-white lead">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora
+                        adipisci impedit.</p>
+                </div>
+                <div class="col-md-3 ml-auto">
+                    <a href="register.php" class="btn btn-warning btn-block btn-lg">Sign Up</a>
                 </div>
             </div>
         </div>
     </section>
+
+
 
     <?php include 'pages/footer.php'; ?>
 

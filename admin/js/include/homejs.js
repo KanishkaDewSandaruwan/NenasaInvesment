@@ -453,31 +453,31 @@ deleteDataFromHome = (id, table, id_fild) => {
     }).then((result) => {
         if (result.isConfirmed) {
 
-            var data = {
-                id: id,
-                table: table,
-                id_fild: id_fild,
-            }
+            // var data = {
+            //     id: id,
+            //     table: table,
+            //     id_fild: id_fild,
+            // }
 
-            console.log(data);
+            // console.log(data);
 
-            $.ajax({
-                method: "POST",
-                url: HOME_API_PATH + "deleteData",
-                data: data,
-                success: function ($data) {
-                    console.log($data);
-                    successToastwithLogout();
-                },
-                error: function (error) {
-                    console.log(`Error ${error}`);
-                }
-            });
-            Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-            )
+            // $.ajax({
+            //     method: "POST",
+            //     url: HOME_API_PATH + "deleteData",
+            //     data: data,
+            //     success: function ($data) {
+            //         console.log($data);
+            //         successToastwithLogout();
+            //     },
+            //     error: function (error) {
+            //         console.log(`Error ${error}`);
+            //     }
+            // });
+            // Swal.fire(
+            //     'Deleted!',
+            //     'Your file has been deleted.',
+            //     'success'
+            // )
         }
     })
 }

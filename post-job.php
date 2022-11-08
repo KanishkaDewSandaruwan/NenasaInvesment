@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <h3 class="text-black mb-5 border-bottom pb-2">Job Details</h3>
 
                         <div class="form-group">

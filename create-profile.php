@@ -3,7 +3,7 @@
 <?php include 'pages/head.php'; ?>
 
 
-<div class="site-wrap">
+<div class="site-wrap" style="background-color: #497aab;">
 
     <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
@@ -99,47 +99,24 @@
     <section class="site-section">
         <div class="container">
 
-            <form class="p-4 p-md-5 border rounded" method="post">
-                <div class="row align-items-center mb-5">
-                    <div class="col-lg-8 mb-4 mb-lg-0">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <h2>Create Account</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 ml-auto">
-                        <div class="row">
-                            <div class="col-4">
-                                <a href="#" class="btn btn-block btn-light btn-md"><span
-                                        class="icon-open_in_new mr-2"></span>Preview</a>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" onclick="addCompany(this.form)" class="btn btn-block btn-primary btn-md">Save Job</button>
-                            </div>
-                            <div class="col-4">
-                                <a href="login.php" class="btn btn-block btn-primary btn-md">Login to Post Job</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <form class="p-4 p-md-5 border rounded bg-dark text-white" method="post">
                 <div class="row mb-5">
-                    <div class="col-lg-12">
-                        <h3 class="text-black my-5 border-bottom pb-2">Company Details</h3>
+                    <div class="col-lg-6">
+                        <h3 class="text-white my-5 border-bottom pb-2">Create Account - Company Details</h3>
                         <div class="form-group">
-                            <label for="company-name">Company Name</label>
+                            <label style="color: white;" for="company-name">Company Name</label>
                             <input type="text" class="form-control" id="company_name" name="company_name"
                                 placeholder="e.g. New York">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-tagline">Tagline (Optional)</label>
+                            <label style="color: white;" for="company-tagline">Tagline (Optional)</label>
                             <input type="text" class="form-control" id="tagline" name="tagline"
                                 placeholder="e.g. New York">
                         </div>
 
                         <div class="form-group">
-                            <label for="job-description">Company Description (Optional)</label>
+                            <label style="color: white;" for="job-description">Company Description (Optional)</label>
                             <textarea id="company_description" name="company_description"></textarea>
                             <script>
                             $('#company_description').summernote({
@@ -159,58 +136,58 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website">Website (Optional)</label>
+                            <label style="color: white;" for="company-website">Website (Optional)</label>
                             <input type="text" class="form-control" id="website" name="website" placeholder="https://">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website-fb">Facebook Username (Optional)</label>
+                            <label style="color: white;" for="company-website-fb">Facebook Username (Optional)</label>
                             <input type="text" class="form-control" id="facbook" name="facbook"
                                 placeholder="companyname">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website-tw">Twitter Username (Optional)</label>
+                            <label style="color: white;" for="company-website-tw">Twitter Username (Optional)</label>
                             <input type="text" class="form-control" id="twitter" name="twitter"
                                 placeholder="@companyname">
                         </div>
                         <div class="form-group">
-                            <label for="company-website-tw">Linkedin Username (Optional)</label>
+                            <label style="color: white;" for="company-website-tw">Linkedin Username (Optional)</label>
                             <input type="text" class="form-control" id="lonkdin" name="lonkdin"
                                 placeholder="companyname">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website">Login Email</label>
+                            <label style="color: white;" for="company-website">Login Email</label>
                             <input type="email" class="form-control" id="company_login_email" name="company_login_email"
                                 placeholder="company@gmail.com">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website-fb">Password</label>
+                            <label style="color: white;" for="company-website-fb">Password</label>
                             <input type="password" class="form-control" id="company_password" name="company_password"
                                 placeholder="Password">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website-fb">Re-Enter Password</label>
+                            <label style="color: white;" for="company-website-fb">Re-Enter Password</label>
                             <input type="password" class="form-control" id="re_company_password"
                                 name="re_company_password" placeholder="Re-Enter Password">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website-tw">Company Email</label>
+                            <label style="color: white;" for="company-website-tw">Company Email</label>
                             <input type="email" class="form-control" id="company_admin_email" name="company_admin_email"
                                 placeholder="company@gmail.com">
                         </div>
                         <div class="form-group">
-                            <label for="company-website-tw">Company Phone Number</label>
+                            <label style="color: white;" for="company-website-tw">Company Phone Number</label>
                             <input type="text" class="form-control" id="company_admin_phone" name="company_admin_phone"
                                 placeholder="01124567896">
                         </div>
 
                         <div class="form-group">
-                            <label for="company-website-tw d-block">Upload Logo</label> <br>
+                            <label style="color: white;" for="company-website-tw d-block">Upload Logo</label> <br>
                             <input class="form-control" required name="file" type="file" id="file">
                         </div>
 
@@ -224,11 +201,7 @@
                     <div class="col-lg-8 ml-auto">
                         <div class="row">
                             <div class="col-4">
-                                <a href="#" class="btn btn-block btn-light btn-md"><span
-                                        class="icon-open_in_new mr-2"></span>Preview</a>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" onclick="addCompany(this.form)" class="btn btn-block btn-primary btn-md">Save Job</button>
+                                <button type="button" onclick="addCompany(this.form)" class="btn btn-block btn-primary btn-md">Register Company</button>
                             </div>
                             <div class="col-4">
                                 <a href="login.php" class="btn btn-block btn-primary btn-md">Login to Post Job</a>

@@ -105,6 +105,9 @@ $job_id = $row['job_id']; ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
+                    <a href="single_job_apply_list.php?job_id=<?php echo $job_id; ?>" class="btn btn-primary">Apply List</a>
+                </div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
                     <a href="company_joblist.php" class="btn btn-primary">Job List</a>
                 </div>
             </div>

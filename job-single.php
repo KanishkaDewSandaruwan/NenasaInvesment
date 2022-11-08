@@ -139,7 +139,7 @@
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="col-6">
-                            <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+                            <a href="apply.php?job_id=<?php echo $job_id; ?>" class="btn btn-block btn-primary btn-md">Apply Now</a>
                         </div>
                     </div>
                 </div>

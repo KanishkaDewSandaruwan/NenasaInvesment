@@ -26,8 +26,8 @@
                         <li><a href="about.php">About</a></li>
                         <li><a href="job-listings.php">Job Listings</a></li>
                         <li><a href="contact.php">Contact</a></li>
-                        
-                        <?php if(isset($_SESSION['company']) && isset($_SESSION['customer'])) : ?>
+
+                        <?php if (isset($_SESSION['company']) && isset($_SESSION['customer'])): ?>
                         <li><a href="company_profile.php">Company</a></li>
                         <li><a href="profile.php">User</a></li>
                         <?php endif; ?>
@@ -42,19 +42,19 @@
                             class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-add"></span>Post a Job</a>
 
-                        <?php if(isset($_SESSION['company']) && isset($_SESSION['customer'])) : ?>
+                        <?php if (isset($_SESSION['company']) && isset($_SESSION['customer'])): ?>
                         <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log Out</a>
 
 
-                        <?php elseif(isset($_SESSION['customer'])) : ?>
+                        <?php elseif (isset($_SESSION['customer'])): ?>
                         <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log Out</a>
                         <a href="profile.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-user"></span>User Profile</a>
 
 
-                        <?php elseif(isset($_SESSION['company'])) : ?>
+                        <?php elseif (isset($_SESSION['company'])): ?>
                         <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log Out</a>
                         <a href="company_profile.php"
@@ -62,7 +62,7 @@
                                 class="mr-2 icon-user"></span>Company Profile</a>
 
 
-                        <?php else : ?>
+                        <?php else: ?>
                         <a href="login.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log In</a>
                         <a href="register.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
@@ -92,18 +92,25 @@
             </div>
         </div>
     </section>
-    <?php 
-$getall = getAllcustomerById($_SESSION['customer']);
-$row=mysqli_fetch_assoc($getall);
-$customer_id = $row['customer_id']; ?>
+    <?php
+    if (isset($_REQUEST['customer_id']) && $_REQUEST['customer_id'] != '') {
+        $getall = getAllcustomerById($_REQUEST['customer_id']);
+    } else {
+        $getall = getAllcustomerById($_SESSION['customer']);
+    }
+    $row = mysqli_fetch_assoc($getall);
+    $customer_id = $row['customer_id']; ?>
     <section class="site-section" id="next-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                   <a href="joblist.php" class="btn btn-primary">My Appllication</a>
-                </div>
+            <?php if (!isset($_REQUEST['customer_id'])): ?>
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <a href="joblist.php" class="btn btn-primary">My Appllication</a>
             </div>
+        </div>
+        <?php endif; ?>
             <div class="row">
+                <?php if (!isset($_REQUEST['customer_id'])): ?>
                 <div class="col-lg-6 mb-5 mb-lg-0 mt-5">
                     <form action="#" class="" method="post">
 
@@ -148,9 +155,8 @@ $customer_id = $row['customer_id']; ?>
                             <div class="col-md-12">
                                 <input type="email"
                                     onchange='updateDataFromHome(this, "<?php echo $customer_id; ?>","email", "customer", "customer_id")'
-                                    value="<?php echo $row['email']; ?>"
-                                    id="email" class="form-control" placeholder="Enter Email Address"
-                                    >
+                                    value="<?php echo $row['email']; ?>" id="email" class="form-control"
+                                    placeholder="Enter Email Address">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -159,45 +165,63 @@ $customer_id = $row['customer_id']; ?>
                                     onchange='updateDataFromHome(this, "<?php echo $customer_id; ?>","gender", "customer", "customer_id")'
                                     id="gender <?php echo $customer_id; ?>" class='form-control norad tx12'
                                     name="gender" type='text'>
-                                    <option value="1" <?php if ($row['gender']=="1") echo "selected"; ?>>
+                                    <option value="1" <?php if ($row['gender'] == "1")
+                    echo "selected"; ?>>
                                         Male</option>
-                                    <option value="0" <?php if ($row['gender']=="0") echo "selected"; ?>>
+                                    <option value="0" <?php if ($row['gender'] == "0")
+                    echo "selected"; ?>>
                                         Female</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="d-flex justify-content-between align-items-center experience mt-5">
                             <a class="border px-3 p-1 add-experience text-primary" id="change"
                                 href="change_email.php"><i class="fa fa-lock"></i>&nbsp;Change Email</a>
                             <a href="change_password.php" class="border px-3 p-1 add-experience text-primary"><i
                                     class="fa fa-lock"></i>&nbsp;Change Password</a>
-                            <button class="btn btn-primary text-white btn-md border px-3 p-1 add-experience"
-                                onclick="deleteDataFromHome(<?php echo $row['customer_id']; ?>, 'customer', 'customer_id')"><i
-                                    class="fa fa-trash"></i>&nbsp;Delete</button>
+                            <a class="btn btn-primary text-white btn-md border px-3 p-1 add-experience" href="delete.php?customer_id=<?php echo $_SESSION['customer']; ?>"><i
+                                    class="fa fa-trash"></i>&nbsp;Delete</a>
                         </div>
 
 
                     </form>
                 </div>
-                <div class="col-lg-5 ml-auto">
-                <div class="p-4 mb-3 bg-white">
+                <?php endif; ?>
+                <div class=" <?php if (!isset($_REQUEST['customer_id'])){ echo 'col-lg-5'; }else{ echo 'col-lg-12'; } ?>  ml-auto">
+                    <div class="p-4 mb-3 bg-white">
                         <p class="mb-0 font-weight-bold">Name</p>
-                        <p class="mb-4"></i><?php echo $row['name']; ?></p>.
+                        <p class="mb-4"></i>
+                            <?php echo $row['name']; ?>
+                        </p>.
 
                         <p class="mb-0 font-weight-bold">Address</p>
-                        <p class="mb-4"></i><?php echo $row['address']; ?></p>
+                        <p class="mb-4"></i>
+                            <?php echo $row['address']; ?>
+                        </p>
 
                         <p class="mb-0 font-weight-bold">Phone</p>
-                        <p class="mb-4"><a href="#"><?php echo $row['phone']; ?></a></p>
+                        <p class="mb-4"><a href="#">
+                                <?php echo $row['phone']; ?>
+                            </a></p>
 
                         <p class="mb-0 font-weight-bold">Email Address</p>
-                        <p class="mb-4"><a href="#"><?php echo $row['email']; ?></a></p>
+                        <p class="mb-4"><a href="#">
+                                <?php echo $row['email']; ?>
+                            </a></p>
 
                         <p class="mb-0 font-weight-bold"> NIC Number</p>
-                        <p class="mb-4"><a href="#"><?php echo $row['nic']; ?></a></p>
+                        <p class="mb-4"><a href="#">
+                                <?php echo $row['nic']; ?>
+                            </a></p>
 
                         <p class="mb-0 font-weight-bold">Gender</p>
-                        <p class="mb-0"><a href="#"><?php if ($row['gender']=="1") echo "Male"; else echo "Female"; ?></a></p>
+                        <p class="mb-0"><a href="#">
+                                <?php if ($row['gender'] == "1")
+                            echo "Male";
+                        else
+                            echo "Female"; ?>
+                            </a></p>
 
                     </div>
                 </div>

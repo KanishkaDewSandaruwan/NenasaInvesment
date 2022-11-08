@@ -3,7 +3,7 @@
 <?php include 'pages/head.php'; ?>
     
 
-<div class="site-wrap">
+<div class="site-wrap" style="background-color: #497aab;">
 
     <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
@@ -97,18 +97,18 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <h2 class="mb-4">Log In To JobBoard</h2>
-            <form action="#" class="p-4 border rounded">
+            <h2 class="mb-4 text-white">Log In To JobBoard</h2>
+            <form action="#" class="p-4 border rounded bg-dark">
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="fname">Email</label>
+                  <label class="text-white" for="fname">Email</label>
                   <input type="text" name="email" id="email" class="form-control"   placeholder="Email address">
                 </div>
               </div>
               <div class="row form-group mb-4">
                 <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="fname">Password</label>
+                  <label class="text-white" for="fname">Password</label>
                   <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                 </div>
               </div>

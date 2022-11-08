@@ -21,7 +21,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="review.php" >
                 <i class="typcn typcn-film menu-icon"></i>
-                <span class="menu-title">Review</span>
+                <span class="menu-title">Comments</span>
                 </a>
             </li>
             <li class="nav-item">
