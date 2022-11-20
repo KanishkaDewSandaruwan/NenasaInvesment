@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <?php include 'pages/head.php'; ?>
-<?php include 'pages/auth.php'; ?>
+<?php include 'pages/company.php'; ?>
 
 
 <div class="site-wrap">
@@ -102,9 +102,11 @@
                 <?php
                 $job = applyListJob_ID($_REQUEST['job_id']);
                 $row3 = mysqli_fetch_assoc($job);
+                if(mysqli_num_rows($job) > 0) :
                 echo mysqli_num_rows($job);?> Users Applyied</h2>
                 <h2><?php echo $row3['job_title']; ?></h2>
                 <strong>Closing Date : <?php echo $row3['closing_date']; ?></strong><br>
+                <?php endif; ?>
                 </div>
             </div>
  
@@ -120,7 +122,6 @@
                 while ($row3 = mysqli_fetch_assoc($job)) {
                     $apply_id = $row3['apply_id'];
                     $customer_id = $row3['customer_id'];
-                    echo $customer_id;
                     $img = $row3['job_image'];
                     $img_src = "server/uploads/job/" . $img;?>
 

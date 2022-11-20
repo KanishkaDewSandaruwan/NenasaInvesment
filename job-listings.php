@@ -155,6 +155,13 @@
                             <span class="badge badge-success">Part Time</span>
                             <?php endif; ?>
                         </div>
+                        <div class="job-listing-meta">
+                            <?php $getCat =  getCategoryByID($row3['cat_id']);
+                                if($row4 = mysqli_fetch_assoc($getCat)) {
+                             ?>
+                            <span class="badge badge-successs"><?php echo $row4['cat_name']; ?></span>
+                            <?php } ?>
+                        </div>
                     </div>
                 </li>
                 <?php }  }else{?>

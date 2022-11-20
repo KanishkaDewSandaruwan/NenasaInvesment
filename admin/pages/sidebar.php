@@ -13,6 +13,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="category.php">
+                <i class="typcn typcn-th-large menu-icon"></i>
+                <span class="menu-title">Category</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="job.php">
                 <i class="typcn typcn-document-text menu-icon"></i>
                 <span class="menu-title">Job Post</span>

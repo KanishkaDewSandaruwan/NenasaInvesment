@@ -137,6 +137,22 @@ function checkJob($customer_id)
     return mysqli_query($con, $q1);
 }
 
+function getAllCategory()
+{
+    include 'connection.php';
+
+    $viewcat = "SELECT * FROM category WHERE is_deleted = '0' ";
+    return mysqli_query($con, $viewcat);
+}
+
+function getCategoryByID($cat_id)
+{
+    include 'connection.php';
+
+    $viewcat = "SELECT * FROM category WHERE is_deleted = '0' AND cat_id = '$cat_id' ";
+    return mysqli_query($con, $viewcat);
+}
+
 
 function applyListcustomer_ID($customer_id)
 {

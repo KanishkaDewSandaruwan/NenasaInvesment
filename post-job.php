@@ -28,8 +28,8 @@
                         <li><a href="about.php">About</a></li>
                         <li><a href="job-listings.php">Job Listings</a></li>
                         <li><a href="contact.php">Contact</a></li>
-                        
-                        <?php if(isset($_SESSION['company']) && isset($_SESSION['customer'])) : ?>
+
+                        <?php if (isset($_SESSION['company']) && isset($_SESSION['customer'])): ?>
                         <li><a href="company_profile.php">Company</a></li>
                         <li><a href="profile.php">User</a></li>
                         <?php endif; ?>
@@ -44,19 +44,19 @@
                             class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-add"></span>Post a Job</a>
 
-                        <?php if(isset($_SESSION['company']) && isset($_SESSION['customer'])) : ?>
+                        <?php if (isset($_SESSION['company']) && isset($_SESSION['customer'])): ?>
                         <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log Out</a>
 
 
-                        <?php elseif(isset($_SESSION['customer'])) : ?>
+                        <?php elseif (isset($_SESSION['customer'])): ?>
                         <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log Out</a>
                         <a href="profile.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-user"></span>User Profile</a>
 
 
-                        <?php elseif(isset($_SESSION['company'])) : ?>
+                        <?php elseif (isset($_SESSION['company'])): ?>
                         <a href="logout.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log Out</a>
                         <a href="company_profile.php"
@@ -64,7 +64,7 @@
                                 class="mr-2 icon-user"></span>Company Profile</a>
 
 
-                        <?php else : ?>
+                        <?php else: ?>
                         <a href="login.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log In</a>
                         <a href="register.php" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
@@ -103,11 +103,7 @@
             <form class="p-4 p-md-5 border rounded" method="post">
                 <div class="row align-items-center mb-5">
                     <div class="col-lg-8 mb-4 mb-lg-0">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <h2>Post A Job</h2>
-                            </div>
-                        </div>
+                      
                     </div>
                     <div class="col-lg-4">
                         <div class="row">
@@ -123,74 +119,105 @@
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <h3 class="text-black mb-5 border-bottom pb-2">Job Details</h3>
-
-                        <div class="form-group">
-                            <label for="company-website-tw d-block">Upload Featured Image</label> <br>
-                            <input class="form-control" required name="file" type="file" id="file">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="company-website-tw d-block">Upload Featured Image</label> <br>
+                                    <input class="form-control" required name="file" type="file" id="file">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="job-title">Job Title</label>
+                                    <input type="text" class="form-control" id="job_title" name="job_title"
+                                        placeholder="Enter Title">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="job-title">Job Title</label>
-                            <input type="text" class="form-control" id="job_title" name="job_title"
-                                placeholder="Enter Title">
-                        </div>
-                        <div class="form-group">
-                            <label for="job-location">Location</label>
-                            <input type="text" class="form-control" id="job_location" name="job_location"
-                                placeholder="e.g. New York">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="job-location">Location</label>
+                                    <input type="text" class="form-control" id="job_location" name="job_location"
+                                        placeholder="e.g. New York">
 
-                            <input type="hidden" class="form-control" id="company_id" name="company_id"
-                                value="<?php echo $_SESSION['company']; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="job-region">Job Region</label>
-                            <select class="selectpicker border rounded" id="type" name="type" data-style="btn-black"
-                                data-width="100%" data-live-search="true" title="Select Region">
-                                <option value="0">Full Time</option>
-                                <option value="1">Part Time</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="job-region">Job Publish</label>
-                            <select class="selectpicker border rounded" id="job_active" name="job_active"
-                                data-style="btn-black" data-width="100%" title="Select Region">
-                                <option value="0">Active</option>
-                                <option value="1">Deactive</option>
-                            </select>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label for="job-description">Job Description</label>
-                            <textarea id="job_description" name="job_description"></textarea>
-                            <script>
-                            $('#job_description').summernote({
-                                placeholder: 'Job Description',
-                                tabsize: 2,
-                                height: 120,
-                                toolbar: [
-                                    ['style', ['style']],
-                                    ['font', ['bold', 'underline', 'clear']],
-                                    ['color', ['color']],
-                                    ['para', ['ul', 'ol', 'paragraph']],
-                                    ['view', ['fullscreen', 'codeview', 'help']]
-                                ]
-                            });
-                            </script>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="job-title">Closing Date</label>
-                            <input type="date" class="form-control" id="closing_date" name="closing_date"
-                                placeholder="Closing Date">
+                                    <input type="hidden" class="form-control" id="company_id" name="company_id"
+                                        value="<?php echo $_SESSION['company']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="job-region">Job Region</label>
+                                    <select class="selectpicker border rounded" id="type" name="type"
+                                        data-style="btn-black" data-width="100%" data-live-search="true"
+                                        title="Select Region">
+                                        <option value="0">Full Time</option>
+                                        <option value="1">Part Time</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="job-region">Category</label>
+                                    <select id="cat_id" class='form-control norad tx12' name="cat_id" type='text'>
+                                        <?php $getall = getAllCategory();
+                                while ($row = mysqli_fetch_assoc($getall)) { ?>
+                                        <option value="<?php echo $row['cat_id'] ?>">
+                                            <?php echo $row['cat_name'] ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="job-region">Job Publish</label>
+                                    <select class="selectpicker border rounded" id="job_active" name="job_active"
+                                        data-style="btn-black" data-width="100%" title="Select Region">
+                                        <option value="0">Active</option>
+                                        <option value="1">Deactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="job-title">Closing Date</label>
+                                    <input type="date" class="form-control" id="closing_date" name="closing_date"
+                                        placeholder="Closing Date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="job-description">Job Description</label>
+                                    <textarea id="job_description" name="job_description"></textarea>
+                                    <script>
+                                    $('#job_description').summernote({
+                                        placeholder: 'Job Description',
+                                        tabsize: 2,
+                                        height: 120,
+                                        toolbar: [
+                                            ['style', ['style']],
+                                            ['font', ['bold', 'underline', 'clear']],
+                                            ['color', ['color']],
+                                            ['para', ['ul', 'ol', 'paragraph']],
+                                            ['view', ['fullscreen', 'codeview', 'help']]
+                                        ]
+                                    });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 

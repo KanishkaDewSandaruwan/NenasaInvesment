@@ -180,8 +180,9 @@
                                 href="change_email.php"><i class="fa fa-lock"></i>&nbsp;Change Email</a>
                             <a href="change_password.php" class="border px-3 p-1 add-experience text-primary"><i
                                     class="fa fa-lock"></i>&nbsp;Change Password</a>
-                            <a class="btn btn-primary text-white btn-md border px-3 p-1 add-experience" href="delete.php?customer_id=<?php echo $_SESSION['customer']; ?>"><i
-                                    class="fa fa-trash"></i>&nbsp;Delete</a>
+                                    <button class="btn btn-primary text-white btn-md border px-3 p-1 add-experience"
+                                onclick="deleteDataFromHome(<?php echo $row['customer_id']; ?>, 'customer', 'customer_id')"><i
+                                    class="fa fa-trash"></i>&nbsp;Delete</button>
                         </div>
 
 

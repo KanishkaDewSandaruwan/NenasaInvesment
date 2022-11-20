@@ -131,6 +131,22 @@ $job_id = $row['job_id']; ?>
                                 onchange='updateDataFromHome(this, "<?php echo $job_id; ?>","job_location", "job", "job_id")'
                                 value="<?php echo $row['job_location']; ?>" placeholder="e.g. New York">
                         </div>
+                        <div class="form-group">
+                            <label for="job-location">Location</label>
+                            <select
+                                onchange="updateDataFromHome(this, '<?php echo $job_id; ?>', 'cat_id', 'job', 'job_id');"
+                                id="cat_id <?php echo $job_id; ?>" class='form-control norad tx12'
+                                name="cat_id" type='text'>
+                                <?php 
+                                    $getallCat = getAllCategory();
+                                    while($row2=mysqli_fetch_assoc($getallCat)){ ?>
+
+                                <option value="<?php echo $row2['cat_id']; ?>"
+                                    <?php if ($row['cat_id']== $row2['cat_id']) echo "selected"; ?>>
+                                    <?php echo $row2['cat_name']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="job-region">Job Region</label>

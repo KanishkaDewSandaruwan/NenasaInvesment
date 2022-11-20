@@ -133,6 +133,19 @@ else if (isset($_GET['function_code']) && $_GET['function_code'] == 'login') {
     getAllServiceByIDHome($_POST); 
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addBooking') {
     addBooking($_POST); 
+} else if (isset($_GET['function_code']) && $_GET['function_code'] == 'addCategory') {
+
+    $img = $_FILES['file']['name'];
+    $target_dir = "uploads/category/";
+    $target_file = $target_dir . basename($img);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $extensions_arr = array("jpg", "jpeg", "png", "gif", "jfif", "svg", "webp");
+    
+    if (in_array($imageFileType, $extensions_arr)) {
+        move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $img);
+        addCategory($_POST, $img);
+    }
+
 }
 
 

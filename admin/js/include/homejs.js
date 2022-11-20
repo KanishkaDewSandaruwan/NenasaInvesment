@@ -33,21 +33,21 @@ addreview = (form) => {
     if (formData.get('review_review').trim() != '') {
         if (formData.get('review_name').trim() != '') {
             if (formData.get('review_email').trim() != '') {
-                    $.ajax({
-                        method: "POST",
-                        url: HOME_API_PATH + "addreview",
-                        data: formData,
-                        success: function ($data) {
-                            console.log($data);
-                            successToast();
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        error: function (error) {
-                            console.log(`Error ${error}`);
-                        }
-                    });
+                $.ajax({
+                    method: "POST",
+                    url: HOME_API_PATH + "addreview",
+                    data: formData,
+                    success: function ($data) {
+                        console.log($data);
+                        successToast();
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    error: function (error) {
+                        console.log(`Error ${error}`);
+                    }
+                });
 
             } else { errorMessage("Please Enter Email"); }
         } else { errorMessage("Please Enter Your Name"); }
@@ -218,7 +218,7 @@ changeHomeDescription = (form) => {
         success: function ($data) {
             console.log($data);
             loading("Company Description Saving Success..")
-            
+
         },
         cache: false,
         contentType: false,
@@ -442,44 +442,30 @@ updateStatusFromHome = (value, id, field, table, id_fild) => {
 
 deleteDataFromHome = (id, table, id_fild) => {
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
+    const response = confirm("Are you sure you want to Delete Account?");
 
-            // var data = {
-            //     id: id,
-            //     table: table,
-            //     id_fild: id_fild,
-            // }
-
-            // console.log(data);
-
-            // $.ajax({
-            //     method: "POST",
-            //     url: HOME_API_PATH + "deleteData",
-            //     data: data,
-            //     success: function ($data) {
-            //         console.log($data);
-            //         successToastwithLogout();
-            //     },
-            //     error: function (error) {
-            //         console.log(`Error ${error}`);
-            //     }
-            // });
-            // Swal.fire(
-            //     'Deleted!',
-            //     'Your file has been deleted.',
-            //     'success'
-            // )
+    if (response) {
+        var data = {
+            id: id,
+            table: table,
+            id_fild: id_fild,
         }
-    })
+
+        $.ajax({
+            method: "POST",
+            url: HOME_API_PATH + "deleteData",
+            data: data,
+            success: function ($data) {
+                console.log($data);
+                successToastwithLogout();
+                window.location.href = 'logout.php';
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+
+    } 
 }
 
 callUpdateRequestFromHome = (data) => {

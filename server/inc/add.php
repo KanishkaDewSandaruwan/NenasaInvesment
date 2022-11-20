@@ -41,14 +41,15 @@ function addJob($data, $img)
 	$job_description = $data['job_description'];
 	$job_active = $data['job_active'];
 	$closing_date = $data['closing_date'];
+	$cat_id = $data['cat_id'];
 
 	$count_loginCustomer = checkJob($job_title);
 	$count = mysqli_num_rows($count_loginCustomer);
 
 	if ($count == 0) {
 
-		$sql = "INSERT INTO job(job_image, job_title, job_location, type, job_description, is_deleted, job_active, closing_date, date_updated, company_id) 
-		VALUES('$img', '$job_title', '$job_location', '$type', '$job_description', 0, '$job_active', '$closing_date' , now(), '$company_id')";
+		$sql = "INSERT INTO job(job_image, job_title, job_location, type, job_description, is_deleted, job_active, closing_date, date_updated, company_id, cat_id) 
+		VALUES('$img', '$job_title', '$job_location', '$type', '$job_description', 0, '$job_active', '$closing_date' , now(), '$company_id', '$cat_id')";
 		return mysqli_query($con, $sql);
 
 	}
@@ -94,6 +95,17 @@ function addMessage($data)
 
 	$sql = "INSERT INTO contact(name, email, subject, message, date_updated) VALUES('$name', '$email', '$subject', '$message', now())";
 	return mysqli_query($con, $sql);
+}
+
+function addCategory($data, $img)
+{
+    include 'connection.php';
+
+    $category_name = $data['category_name'];
+
+    $sql = "INSERT INTO category(cat_name, cat_image, is_deleted, date_updated) VALUES('$category_name', '$img', 0 , now())";
+    return mysqli_query($con, $sql);
+
 }
 
 function addreview($data)

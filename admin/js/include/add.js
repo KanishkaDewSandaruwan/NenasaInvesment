@@ -1,4 +1,35 @@
 
+addCategory = (form) => {
+    let fd = new FormData(form);
+
+    if (fd.get('category_name').trim() != '') {
+        if (fd.get("file") != '') {
+
+            $.ajax({
+                method: "POST",
+                url: API_PATH + "addCategory",
+                data: fd,
+                success: function ($data) {
+                    console.log($data);
+
+                    if ($data > 0) {
+                        errorMessage("This Category Already Registerd!");
+                    } else {
+                        successToast();
+
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                error: function (error) {
+                    console.log(`Error ${error}`);
+                }
+            });
+        } else { errorMessage("Please SelectImage"); }
+    } else { errorMessage("Please Enter Category Name"); }
+}
+
 
 addCustomer = (form) => {
     let fd = new FormData(form);
