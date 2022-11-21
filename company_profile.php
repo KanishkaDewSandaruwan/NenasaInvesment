@@ -107,8 +107,10 @@ $company_id = $row['company_id']; ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0 mt-5">
-                <a href="company_joblist.php" class="btn btn-primary btn-lg">Job List</a>
-                <a href="company_joblist.php" class="btn btn-primary btn-lg">Job Apply List</a>
+                <a href="company_joblist.php" class="btn btn-primary btn-lg mt-2">Job List</a>
+                <a href="company_joblist.php" class="btn btn-primary btn-lg mt-2">Job Apply List</a>
+                <a href="admin/getSales_report.php" class="btn btn-primary btn-lg mt-2">Today Apply Report</a>
+                <a href="admin/getSales_report_month.php" class="btn btn-primary btn-lg mt-2">Monthly Apply Report</a>
                 </div>
                 <div class="col-lg-5 ml-auto">
                     <div class="p-4 mb-3 bg-white">

@@ -277,26 +277,17 @@ function dataforCount($table){
     return mysqli_query($con,$counts);
 }
 
-function dataforCountMonth($table){
+function getDailyReport(){
 	include 'connection.php';
 
-	$counts = "SELECT sum(booking_price) as sum FROM $table WHERE month(now()) = month(date_updated)";
-    return mysqli_query($con,$counts);
+	$viewcat = "SELECT * FROM apply join customer on customer.customer_id = apply.customer_id join job on job.job_id = job.job_id WHERE DAY(apply.date_updated) = DAY(now()) group by apply.apply_id ";
+	return mysqli_query($con,$viewcat);
 }
-
-function dataforCountToday($table){
+function getDailyReportMonth(){
 	include 'connection.php';
 
-	$counts = "SELECT sum(booking_price) as sum FROM $table WHERE day(now()) = day(date_updated)";
-    return mysqli_query($con,$counts);
-}
-
-function dataforCountLastWeek($table){
-	include 'connection.php';
-    $NewDate = Date('y:m:d', strtotime('-7 days'));
-
-	$counts = "SELECT sum(booking_price) as sum FROM $table WHERE NOT(date_updated < '$NewDate'  OR date_updated >  now())";
-    return mysqli_query($con,$counts);
+	$viewcat = "SELECT * FROM apply join customer on customer.customer_id = apply.customer_id join job on job.job_id = job.job_id WHERE MONTH(apply.date_updated) = MONTH(now()) group by apply.apply_id ";
+	return mysqli_query($con,$viewcat);
 }
 
 //search
