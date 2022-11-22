@@ -214,7 +214,9 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <p class="mb-0 text-muted">Candidates</p>
                                             </div>
-                                            <h4><?php echo dataCount('customer'); ?></h4>
+                                            <h4>
+                                                <?php echo dataCount('customer'); ?>
+                                            </h4>
                                             <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
                                         </div>
                                     </div>
@@ -224,13 +226,15 @@
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <p class="text-muted">Review</p>
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <h3 class="mb-"><?php echo dataCount('review'); ?></h3>
+                                                <h3 class="mb-">
+                                                    <?php echo dataCount('review'); ?>
+                                                </h3>
                                             </div>
                                             <canvas id="sales-chart-b" class="mt-auto" height="38"></canvas>
                                         </div>
                                     </div>
                                 </div>
-             
+
                             </div>
                             <div class="row h-100">
                                 <div class="col-md-6 stretch-card grid-margin grid-margin-md-0">
@@ -238,7 +242,9 @@
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <p class="text-muted">Jobs</p>
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <h3 class="mb-"><?php echo dataCount('job'); ?></h3>
+                                                <h3 class="mb-">
+                                                    <?php echo dataCount('job'); ?>
+                                                </h3>
                                             </div>
                                             <canvas id="sales-chart-b" class="mt-auto" height="38"></canvas>
                                         </div>
@@ -249,7 +255,9 @@
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <p class="text-muted">Company</p>
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <h3 class="mb-"><?php echo dataCount('company'); ?></h3>
+                                                <h3 class="mb-">
+                                                    <?php echo dataCount('company'); ?>
+                                                </h3>
                                             </div>
                                             <canvas id="sales-chart-b" class="mt-auto" height="38"></canvas>
                                         </div>
@@ -266,7 +274,9 @@
                                             <div class="d-flex justify-content-between align-items-start flex-wrap">
                                                 <div>
                                                     <p class="mb-3">Total Apply</p>
-                                                    <h3><?php echo dataCount('apply'); ?></h3>
+                                                    <h3>
+                                                        <?php echo dataCount('apply'); ?>
+                                                    </h3>
                                                 </div>
                                                 <div id="income-chart-legend" class="d-flex flex-wrap mt-1 mt-md-0">
                                                 </div>
@@ -277,20 +287,59 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-6 grid-margin stretch-card flex-column">
+                            <h5 class="mb-2 text-titlecase mb-4">Reports</h5>
+                            <div class="row h-100">
+                                <div class="col-md-12 stretch-card">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                                <div>
+                                                    <p class="mb-3">Today Apply Report</p>
+                                                </div>
+                                                <a href="getsales_report.php">Download</a>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                                <div>
+                                                    <p class="mb-3">Monthly Apply Report</p>
+                                                </div>
+                                                <a href="getsales_report_month.php">Download</a>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                                <div>
+                                                    <p class="mb-3">Today Post Report</p>
+
+                                                </div>
+                                                <a href="daily_getpost_report.php">Download</a>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                                <div>
+                                                    <p class="mb-3">Monthly Post Report</p>
+
+                                                </div>
+                                                <a href="monthly_post_report.php">Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    
-
-                    
                 </div>
             </div>
 
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <?php include 'pages/footer.php'; ?>
 
-        <!-- partial -->
+
+
+        </div>
+    </div>
+
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <?php include 'pages/footer.php'; ?>
+
+    <!-- partial -->
     </div>
     <!-- main-panel ends -->
     </div>

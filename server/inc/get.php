@@ -290,6 +290,21 @@ function getDailyReportMonth(){
 	return mysqli_query($con,$viewcat);
 }
 
+function getDailyPostReport(){
+	include 'connection.php';
+
+	$viewcat = "SELECT * FROM job join company on company.company_id = job.company_id WHERE DAY(job.date_updated) = DAY(now())";
+	return mysqli_query($con,$viewcat);
+}
+
+function getMonthlyPostReport(){
+	include 'connection.php';
+
+	$viewcat = "SELECT * FROM job join company on company.company_id = job.company_id WHERE MONTH(job.date_updated) = MONTH(now())";
+	return mysqli_query($con,$viewcat);
+}
+
+
 //search
 
 function getAllItemsSearch($key)
