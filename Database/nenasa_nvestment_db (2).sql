@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2022 at 07:12 PM
+-- Generation Time: Nov 23, 2022 at 05:47 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -259,15 +259,16 @@ CREATE TABLE `settings` (
   `about_image` varchar(255) NOT NULL,
   `link_facebook` varchar(255) NOT NULL,
   `link_twiiter` varchar(255) NOT NULL,
-  `link_instragram` varchar(255) NOT NULL
+  `link_instragram` varchar(255) NOT NULL,
+  `login_image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`header_image`, `header_title`, `header_desc`, `about_title`, `about_desc`, `company_phone`, `company_email`, `company_address`, `sub_image`, `about_image`, `link_facebook`, `link_twiiter`, `link_instragram`) VALUES
-('hero_1.jpg', 'Welcome to Nanasa', 'With this shop hompeage ', 'About Us', 'sajskajskajskjask', '0713664076', 'asn@gmail.com', 'Banwalgodalla, Kosmulla', 'banner-1.jpg', 'img_1.jpg', 'https://www.facebook.com/', 'https://www.facebook.com/', 'https://www.facebook.com/');
+INSERT INTO `settings` (`header_image`, `header_title`, `header_desc`, `about_title`, `about_desc`, `company_phone`, `company_email`, `company_address`, `sub_image`, `about_image`, `link_facebook`, `link_twiiter`, `link_instragram`, `login_image`) VALUES
+('hero_1.jpg', 'Welcome to Nanasa', 'With this shop hompeage ', 'About Us', 'sajskajskajskjask', '0713664076', 'asn@gmail.com', 'Banwalgodalla, Kosmulla', 'banner-1.jpg', 'img_1.jpg', 'https://www.facebook.com/', 'https://www.facebook.com/', 'https://www.facebook.com/', 'Spouts.jpg');
 
 --
 -- Indexes for dumped tables
