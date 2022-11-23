@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
-include 'server/api.php';  
+include '../server/api.php';  
 
 $setting = getAllSettings();
 $res = mysqli_fetch_assoc($setting);
 
 $login_image = $res['login_image'];
-$login_image_src = "server/uploads/settings/".$login_image;
+$login_image_src = "../server/uploads/settings/".$login_image;
 ?>
 
 <head>
@@ -27,40 +27,12 @@ $login_image_src = "server/uploads/settings/".$login_image;
             <label>Password</label>
             <input type="password"  name="password" id="password"/>
           </div>
-          <button type="button" onclick="login(this.form)" class="login-button">Sign In</button>
+          <button type="button" onclick="loginAdmin(this.form)" class="login-button">Sign In</button>
         </form>
       </div>
     </div>
+    <?php include 'pages/assets.php'; ?>
     <!-- End custom js for this page-->
-    
-<!-- toast -->
-<script src="admin/plugin/iziToast-master/dist/js/iziToast.min.js" type="text/javascript"></script>
-<link rel="stylesheet" href="admin/plugin/iziToast-master/dist/css/iziToast.min.css">
-<!-- endbuild -->
-
-<!-- Simple table -->
-<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-
-<script src="https://kit.fontawesome.com/6e8b05f9c5.js" crossorigin="anonymous"></script>
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-
-<script src="admin/js/include/alerts.js"></script>
-<script src="admin/js/include/validation.js"></script>
-<script src="admin/js/include/homejs.js"></script>
-<script src="admin/js/include/upload.js"></script>
-<script src="admin/js/include/add.js"></script>
-<script src="admin/js/include/delete.js"></script>
-
-<script src="admin/js/include/admin.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-</script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="styles" />
 </body>
 
 <style>

@@ -31,10 +31,10 @@
                                     <table id="datatablesSimple">
                                         <thead>
                                             <tr>
-                                                <th>Job</th>
+                                                <th>User</th>
+                                                <th>Aditional Details</th>
                                                 <th>Type</th>
                                                 <th>Description</th>
-                                                <th>Action</th>
                                                 <th>Date</th>
                                                 <th></th>
 
@@ -42,53 +42,34 @@
                                         </thead>
                                         <tbody>
                                             <?php 
-                                $getall = getAllJobs();
+                                $getall = applyListJob_ID($_REQUEST['job_id']);
 
                                 while($row=mysqli_fetch_assoc($getall)){ 
-                                  $job_id = $row['job_id'];
-
-                                $img = $row['job_image'];
-                                $img_src = "../server/uploads/job/" . $img; 
+                                  $apply_id = $row['apply_id'];
                                   ?>
 
 
                                             <tr>
                                                 <td>
-                                                    <?php echo $row['job_title']; ?><br />
-                                                    <?php echo $row['job_location']; ?><br />
-                                                    <img width="50px" src='<?php echo $img_src; ?>'>
-
+                                                    <?php echo $row['name']; ?><br />
+                                                    <?php echo $row['address']; ?><br />
+                                                    <?php echo $row['phone']; ?><br />
+                                                    <a href="download.php?apply_id=<?php echo $row['apply_id'] ?>">Download Resume</a>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row['additional_details']; ?>
                                                 </td>
                                                 <td><?php  if ($row['type'] == "0"){ echo "Full Time"; }else{ echo "Part Time";} ?>
                                                 </td>
 
                                                 <td><?php echo $row['job_description']; ?></td>
                                                 <td>
-                                                    <select
-                                                        onchange="updateData(this, '<?php echo $job_id; ?>', 'job_active', 'job', 'job_id');"
-                                                        id="job_active <?php echo $job_id; ?>"
-                                                        class='form-control norad tx12' name="job_active" type='text'>
-                                                        <option value="0"
-                                                            <?php if ($row['job_active'] == "0" ) echo "selected" ; ?>>
-                                                            Active
-                                                        </option>
-                                                        <option value="1"
-                                                            <?php if ($row['job_active'] == "1" ) echo "selected" ; ?>>
-                                                            Deactive
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <td>
                                                     Closing Date : <?php echo $row['closing_date']; ?><br />
                                                     Date : <?php echo $row['date_updated']; ?><br />
                                                 </td>
-
                                                 <td> 
-                                                    <a href="apply_customer.php?job_id=<?php echo $row['job_id']; ?>"
-                                                        class="btn btn-darkblue"> <i class="fa-solid fa-user"></i>
-                                                    </a>
                                                     <button type="button"
-                                                        onclick="deleteData(<?php echo $row['job_id']; ?>,'job', 'job_id')"
+                                                        onclick="deleteData(<?php echo $row['apply_id']; ?>,'apply', 'apply_id')"
                                                         class="btn btn-darkblue"> <i class="fa-solid fa-trash"></i>
                                                     </button>
 

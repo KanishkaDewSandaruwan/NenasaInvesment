@@ -39,6 +39,9 @@
 
                             $about_image = $res['about_image'];
                             $about_image_src = "../server/uploads/settings/".$about_image;
+
+                            $login_image = $res['login_image'];
+                            $login_image_src = "../server/uploads/settings/".$login_image;
                     ?>
                             <div class="row m-5 p-5 border border-white">
                                 <div class="col-md-12">
@@ -66,6 +69,16 @@
                                     </div>
 
                                     <img class="mt-2" width="50%" src='<?php echo $img_src; ?>'>
+                                </form>
+                                <form class="mt-3" method="POST" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <input type="hidden" name="field" id="field" value="login_image">
+                                        <label for="formFile" class="form-label">Login Image</label>
+                                        <input class="form-control" onchange="uploadSettingImage(this.form);"
+                                            name="file" type="file" id="formFile">
+                                    </div>
+
+                                    <img class="mt-2" width="50%" src='<?php echo $login_image_src; ?>'>
                                 </form>
                             </div>
 

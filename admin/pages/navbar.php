@@ -36,7 +36,7 @@
             </li>
             <li class="nav-item dropdown mr-0">
                 <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
-                    id="notificationDropdown" href="../logout.php" >
+                    id="notificationDropdown" href="logout.php" >
                     <i class="typcn typcn-lock-closed mx-0"></i>
                 </a>
             </li>

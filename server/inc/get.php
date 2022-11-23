@@ -103,18 +103,38 @@ function getLoginAdmin($data)
             $row = mysqli_fetch_assoc($res);
             $_SESSION['company'] = $row['company_id'];
 
-     
     }else if($counts_loginCustomer > 0){
 
         $value = $counts_loginCustomer;
 
+        $res = checkCustomerByEmail($email);
+        $row = mysqli_fetch_assoc($res);
+        $_SESSION['customer'] = $row['customer_id'];
+        
+    }
+      return $value;
+    
+}
 
+function loginAdmin($data)
+{
+    include 'connection.php';
+
+    $email = $data['email'];
+    $password = $data['password'];
+
+
+    $loginCustomer = "SELECT * FROM customer WHERE email = '$email' AND permision = '1' AND password ='$password'";
+    $count_loginCustomer = mysqli_query($con, $loginCustomer);
+    $counts_loginCustomer = mysqli_num_rows($count_loginCustomer);
+
+    $value = 0;
+
+    if($counts_loginCustomer > 0){
+
+        $value = $counts_loginCustomer;
         if ($email == 'admin') {
             $_SESSION['admin'] = $email;
-        }else{
-            $res = checkCustomerByEmail($email);
-            $row = mysqli_fetch_assoc($res);
-            $_SESSION['customer'] = $row['customer_id'];
         }
     }
       return $value;

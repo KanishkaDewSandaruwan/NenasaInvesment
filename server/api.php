@@ -113,6 +113,9 @@ else if (isset($_GET['function_code']) && $_GET['function_code'] == 'permanantDe
 }
 else if (isset($_GET['function_code']) && $_GET['function_code'] == 'login') {
 	echo getLoginAdmin($_POST);
+}
+else if (isset($_GET['function_code']) && $_GET['function_code'] == 'loginAdmin') {
+	echo loginAdmin($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkPasswordByEmail') {
     checkPasswordByName($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkoutOrder') {
