@@ -109,13 +109,9 @@ else if (isset($_GET['function_code']) && $_GET['function_code'] == 'permanantDe
         move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $img);
         editSettingImage($_POST, $img);
     }
-
 }
 else if (isset($_GET['function_code']) && $_GET['function_code'] == 'login') {
 	echo getLoginAdmin($_POST);
-}
-else if (isset($_GET['function_code']) && $_GET['function_code'] == 'loginAdmin') {
-	echo loginAdmin($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkPasswordByEmail') {
     checkPasswordByName($_POST);
 }else if (isset($_GET['function_code']) && $_GET['function_code'] == 'checkoutOrder') {

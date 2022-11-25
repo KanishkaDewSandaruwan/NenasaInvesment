@@ -84,35 +84,6 @@ login = (myForm) => {
     });
 }
 
-loginAdmin = (myForm) => {
-    var formData = new FormData(myForm);
-
-    $.ajax({
-        method: "POST",
-        url: API_PATH + "loginAdmin",
-        data: formData,
-        success: function ($data) {
-            console.log($data);
-            if ($data > 0) {
-                if (formData.get("email") == 'admin') {
-                    window.location.href = 'index.php';
-                } 
-            } else {
-                iziToast.error({
-                    timeout: 2000,
-                    title: 'Error',
-                    message: "Username or Password is Wrong",
-                });
-            }
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        error: function (error) {
-            console.log(`Error ${error}`);
-        }
-    });
-}
 
 /*.............................................................. Update Data..............................................................*/
 
